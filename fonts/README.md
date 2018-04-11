@@ -10,3 +10,4 @@ ATHENS | MousePaint | 128 | Double | 12
 NEW.YORK | MousePaint | 128 | Double | 11
 TORONTO | MousePaint | 128 | Double | 11
 VENICE | MousePaint | 128 | Double | 10
+TEST.FONT | Omnitrend's Universe II | 128 | Single | 9
