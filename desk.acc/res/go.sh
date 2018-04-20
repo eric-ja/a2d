@@ -13,7 +13,7 @@ function cecho {
 }
 
 function do_make {
-    make "$1" \
+    make $MAKE_FLAGS "$1" \
         && (cecho green "make $1 good") \
         || (tput blink ; cecho red "MAKE $1 BAD" ; return 1)
 }
@@ -44,6 +44,7 @@ verify "calculator"
 verify "show.text.file"
 verify "date"
 verify "puzzle"
+verify "sort.directory"
 
 # Compute stats
 echo "Stats:"
@@ -51,8 +52,12 @@ stats "calculator.s"
 stats "show.text.file.s"
 stats "date.s"
 stats "puzzle.s"
+stats "sort.directory.s"
 
 # Mountable directory
-echo "Copying files to mount/"
-mount 'show.image.file.$F1'
-mount 'this.apple.$F1'
+if [ -d mount ]; then
+    echo "Copying files to mount/"
+    mount 'show.image.file.$F1'
+    mount 'this.apple.$F1'
+    mount 'eyes.$F1'
+fi
