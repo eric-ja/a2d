@@ -66,109 +66,138 @@ MLI     := $4000
 NoOp            := $00          ; No-op
 ;;; (no parameters)
 
+
 ;;; --------------------------------------------------
 ;;; Initialization Commands
 
-InitGraf        := $01
+.import MGTK__InitGraf
+InitGraf         := <MGTK__InitGraf          ; $01
 ;;; (no parameters)
 
-SetSwitches     := $02          ; Configure display switches
+.import MGTK__SetSwitches
+SetSwitches      := <MGTK__SetSwitches       ; $02          ; Configure display switches
 ;;; .byte       flags           bit 0=hires, 1=page2, 2=mixed, 3=text
 
 ;;; --------------------------------------------------
 ;;; GrafPort Commands
 
-InitPort        := $03          ; Initialize GrafPort to standard values
+.import MGTK__InitPort
+InitPort         := <MGTK__InitPort          ; $03          ; Initialize GrafPort to standard values
 ;;; (input is address of GrafPort record)
 
-SetPort         := $04          ; Set current port as specified
+.import MGTK__SetPort
+SetPort          := <MGTK__SetPort           ; $04          ; Set current port as specified
 ;;; (input is address of GrafPort record)
 
-GetPort         := $05          ; Get pointer to current port
+.import MGTK__GetPort
+GetPort          := <MGTK__GetPort           ; $05          ; Get pointer to current port
 ;;; .addr       port            (out)
 
-SetPortBits     := $06          ; Set just the mapinfo (viewloc, mapbits)
+.import MGTK__SetPortBits
+SetPortBits      := <MGTK__SetPortBits       ; $06          ; Set just the mapinfo (viewloc, mapbits)
 ;;; (input is address of MapInfo record)
 
-SetPenMode      := $07          ; Set the current pen mode
+.import MGTK__SetPenMode
+SetPenMode       := <MGTK__SetPenMode        ; $07          ; Set the current pen mode
 ;;; .byte       mode            pen*/notpen*
 
-SetPattern      := $08          ; Set the current pattern
+.import MGTK__SetPattern
+SetPattern       := <MGTK__SetPattern        ; $08          ; Set the current pattern
 ;;; .res 8      pattern         8x8 pixel pattern for PaintRect calls
 
-SetColorMasks   := $09          ; Set the current color masks
+.import MGTK__SetColorMasks
+SetColorMasks    := <MGTK__SetColorMasks     ; $09          ; Set the current color masks
 ;;; .byte       and_mask
 ;;; .byte       or_mask
 
-SetPenSize      := $0A          ; Set the current pen size
+.import MGTK__SetPenSize
+SetPenSize       := <MGTK__SetPenSize        ; $0A          ; Set the current pen size
 ;;; .byte       penwidth        horizontal pen thickness
 ;;; .byte       penheight       vertical pen thickness
 
-SetFont         := $0B          ; Set the current font
+.import MGTK__SetFont
+SetFont          := <MGTK__SetFont           ; $0B          ; Set the current font
 ;;; .addr       textfont        font definition
 
-SetTextBG       := $0C          ; Set the current text background
+.import MGTK__SetTextBG
+SetTextBG        := <MGTK__SetTextBG         ; $0C          ; Set the current text background
 ;;; .byte       backcolor       0=black, $7F=white
 
 ;;; --------------------------------------------------
 ;;; Drawing Commands
 
-Move            := $0D          ; Set current pen location (relative)
+.import MGTK__Move
+Move             := <MGTK__Move              ; $0D          ; Set current pen location (relative)
 ;;; .word       xdelta
 ;;; .word       ydelta
 
-MoveTo          := $0E          ; Set current pen location (absolute)
+.import MGTK__MoveTo
+MoveTo           := <MGTK__MoveTo            ; $0E          ; Set current pen location (absolute)
 ;;; Point        pos
 
-Line            := $0F          ; Draw line from current pen location (relative)
+.import MGTK__Line
+Line             := <MGTK__Line              ; $0F          ; Draw line from current pen location (relative)
 ;;; .word       xdelta
 ;;; .word       ydelta
 
-LineTo          := $10          ; Draw line from current pen location (absolute)
+.import MGTK__LineTo
+LineTo           := <MGTK__LineTo            ; $10          ; Draw line from current pen location (absolute)
 ;;; Point       pos
 
-PaintRect       := $11          ; Fill rectangle with selected simple pattern/thickness
+.import MGTK__PaintRect
+PaintRect        := <MGTK__PaintRect         ; $11          ; Fill rectangle with selected simple pattern/thickness
 ;;; Rect        rect
 
-FrameRect       := $12          ; Draw rectangle with selected simple pattern/thickness
+.import MGTK__FrameRect
+FrameRect        := <MGTK__FrameRect         ; $12          ; Draw rectangle with selected simple pattern/thickness
 ;;; Rect        rect
 
-InRect          := $13          ; Is current position in bounds? A=$80 true, 0 false
+.import MGTK__InRect
+InRect           := <MGTK__InRect            ; $13          ; Is current position in bounds? A=$80 true, 0 false
 ;;; Rect        rect
 
-PaintBits       := $14          ; Draw pattern
+.import MGTK__PaintBits
+PaintBits        := <MGTK__PaintBits         ; $14          ; Draw pattern
 ;;; (input is address of MapInfo record)
 
-PaintPoly       := $15
+.import MGTK__PaintPoly
+PaintPoly        := <MGTK__PaintPoly         ; $15
 ;;; (input is address of PolyList record)
 
-FramePoly       := $16          ; Draw multiple closed polygons
+.import MGTK__FramePoly
+FramePoly        := <MGTK__FramePoly         ; $16          ; Draw multiple closed polygons
 ;;; (input is address of PolyList record)
 
-InPoly          := $17          ; Is current position in bounds? A=$80 true, 0 false
+.import MGTK__InPoly
+InPoly           := <MGTK__InPoly            ; $17          ; Is current position in bounds? A=$80 true, 0 false
 ;;; (input is address of PolyList record)
 
 
 ;;; --------------------------------------------------
 ;;; Text Commands
 
-TextWidth       := $18          ; Measure the width of a string in pixels
+.import MGTK__TextWidth
+TextWidth        := <MGTK__TextWidth         ; $18          ; Measure the width of a string in pixels
 ;;; .addr       data
 ;;; .byte       length
 ;;; .word       width           (out) result in pixels
 
-DrawText        := $19          ; Drawn at penpos as left, baseline
+.import MGTK__DrawText
+DrawText         := <MGTK__DrawText          ; $19          ; Drawn at penpos as left, baseline
 ;;; .addr       data
 ;;; .byte       length
 
 ;;; --------------------------------------------------
 ;;; Utility Commands
 
-SetZP1          := $1A          ; Configure lower half of ZP usage by API (speed vs. convenience)
-SetZP2          := $1B          ; Configure upper half ZP usage by API (speed vs. convenience)
+.import MGTK__SetZP1
+SetZP1           := <MGTK__SetZP1            ; $1A          ; Configure lower half of ZP usage by API (speed vs. convenience)
+.import MGTK__SetZP2
+SetZP2           := <MGTK__SetZP2            ; $1B          ; Configure upper half ZP usage by API (speed vs. convenience)
 ;;; .byte       preserve        0=stash/no auto restore; 1=restore now and onward
 
-Version         := $1C          ; Get toolkit version
+.import MGTK__Version
+Version          := <MGTK__Version           ; $1C          ; Get toolkit version
 ;;; .byte       (out) major
 ;;; .byte       (out) minor
 ;;; .byte       (out) patch
@@ -182,7 +211,8 @@ Version         := $1C          ; Get toolkit version
 ;;; --------------------------------------------------
 ;;; Initialization Calls
 
-StartDeskTop    := $1D          ; Inits state, registers interrupt handler, draws desktop
+.import MGTK__StartDeskTop
+StartDeskTop     := <MGTK__StartDeskTop      ; $1D          ; Inits state, registers interrupt handler, draws desktop
 ;;; .byte       machine         ROM FBB3 ($06 = IIe or later)
 ;;; .byte       subid           ROM FBC0 ($EA = IIe, $E0 = IIe enh/IIgs, $00 = IIc/IIc+)
 ;;; .byte       op_sys          0=ProDOS, 1=Pascal
@@ -192,26 +222,36 @@ StartDeskTop    := $1D          ; Inits state, registers interrupt handler, draw
 ;;; .addr       savearea        buffer for saving screen data (e.g. behind menus)
 ;;; .word       savesize        bytes
 
-StopDeskTop     := $1E          ; Deallocates interrupt, hides cursor
+.import MGTK__StopDeskTop
+StopDeskTop      := <MGTK__StopDeskTop       ; $1E          ; Deallocates interrupt, hides cursor
 ;;; (no parameters)
 
-SetUserHook     := $1F
+.import MGTK__SetUserHook
+SetUserHook      := <MGTK__SetUserHook       ; $1F
 ;;; .byte       hook_id         0=before, 1=after event checking
 ;;; .addr       routine_ptr     0=remove hook_id
 
-AttachDriver    := $20         ; Install pointer driver; A=0 on success, $95 if mouse disabled
+.import MGTK__AttachDriver
+AttachDriver     := <MGTK__AttachDriver      ; $20         ; Install pointer driver; A=0 on success, $95 if mouse disabled
 ;;; .addr       hook            Mouse hook routine to install
 ;;; .addr       mouse_state     (out) Address of mouse state (.word x, y; .byte status)
 
-ScaleMouse      := $21          ; Set mouse/screen scaling
+.import MGTK__ScaleMouse
+ScaleMouse       := <MGTK__ScaleMouse        ; $21          ; Set mouse/screen scaling
 ;;; .byte       x_exponent      x-scale factor for mouse, 0...3
 ;;; .byte       y_exponent      y-scale factor for mouse, 0...3
 
-KeyboardMouse   := $22          ; Next operation will be performed by keyboard
+.import MGTK__KeyboardMouse
+KeyboardMouse    := <MGTK__KeyboardMouse     ; $22          ; Next operation will be performed by keyboard
 ;;; (no parameters)
 
-GetIntHandler   := $23          ; Get address of interrupt handler
-;;; .addr       handler         (out) Address of interrupt handler (after cld)
+.if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
+
+.import MGTK__GetIntHandler
+GetIntHandler    := <MGTK__GetIntHandler     ; $23          ; Get address of interrupt handler
+;; .addr       handler         (out) Address of interrupt handler (after cld)
+
+.endif
 
 ;;; --------------------------------------------------
 ;;; Cursor Manager Calls
@@ -223,19 +263,24 @@ GetIntHandler   := $23          ; Get address of interrupt handler
 ;;; .byte       hotx            hotspot coords (pixels)
 ;;; .byte       hoty
 
-SetCursor       := $24          ; Set cursor definition
+.import MGTK__SetCursor
+SetCursor        := <MGTK__SetCursor         ; $24          ; Set cursor definition
 ;;; (input is address of Cursor record)
 
-ShowCursor      := $25          ; Return cursor to visibility
+.import MGTK__ShowCursor
+ShowCursor       := <MGTK__ShowCursor        ; $25          ; Return cursor to visibility
 ;;; (no parameters)
 
-HideCursor      := $26          ; Cursor hidden until ShowCursor call
+.import MGTK__HideCursor
+HideCursor       := <MGTK__HideCursor        ; $26          ; Cursor hidden until ShowCursor call
 ;;; (no parameters)
 
-ObscureCursor   := $27          ; Cursor hidden until moved
+.import MGTK__ObscureCursor
+ObscureCursor    := <MGTK__ObscureCursor     ; $27          ; Cursor hidden until moved
 ;;; (no parameters)
 
-GetCursorAddr   := $28          ; Get cursor definition
+.import MGTK__GetCursorAddr
+GetCursorAddr    := <MGTK__GetCursorAddr     ; $28          ; Get cursor definition
 ;;; .addr definition            (out) Address of cursor record
 
 ;;; --------------------------------------------------
@@ -253,22 +298,28 @@ GetCursorAddr   := $28          ; Get cursor definition
 ;;;   .word xcoord
 ;;;   .word ycoord
 
-CheckEvents     := $29          ; Process mouse/kbd if GetEvent will be delayed.
+.import MGTK__CheckEvents
+CheckEvents      := <MGTK__CheckEvents       ; $29          ; Process mouse/kbd if GetEvent will be delayed.
 ;;; (no parameters)
 
-GetEvent        := $2A
+.import MGTK__GetEvent
+GetEvent         := <MGTK__GetEvent          ; $2A
 ;;; (parameter is address of Event record)
 
-FlushEvents     := $2B
+.import MGTK__FlushEvents
+FlushEvents      := <MGTK__FlushEvents       ; $2B
 ;;; (no parameters)
 
-PeekEvent       := $2C
+.import MGTK__PeekEvent
+PeekEvent        := <MGTK__PeekEvent         ; $2C
 ;;; (parameter is address of Event record)
 
-PostEvent       := $2D          ; Post event to queue
+.import MGTK__PostEvent
+PostEvent        := <MGTK__PostEvent         ; $2D          ; Post event to queue
 ;;; (parameter is address of Event record)
 
-SetKeyEvent     := $2E          ; If set, keypresses are ignored by Tool Kit
+.import MGTK__SetKeyEvent
+SetKeyEvent      := <MGTK__SetKeyEvent       ; $2E          ; If set, keypresses are ignored by Tool Kit
 ;;; .byte       handle_keys     high bit set = ignore keyboard, otherwise check
 
 ;;; --------------------------------------------------
@@ -297,43 +348,52 @@ SetKeyEvent     := $2E          ; If set, keypresses are ignored by Tool Kit
 ;;; .addr       name            Address of length-prefixed string
 ;;; ...
 
-InitMenu        := $2F
+.import MGTK__InitMenu
+InitMenu         := <MGTK__InitMenu          ; $2F
 ;;; .byte       solid_char      char code to use for solid apple glyph
 ;;; .byte       open_char       char code to use for open apple glyph
 ;;; .byte       check_char      char code to use for checkmark glyph
 ;;; .byte       control_char    char code to use for control key glyph
 
-SetMenu         := $30          ; Configure (and draw) menu
+.import MGTK__SetMenu
+SetMenu          := <MGTK__SetMenu           ; $30          ; Configure (and draw) menu
 ;;; (input is address of Menu Bar record)
 
-MenuSelect      := $31          ; Enter modal loop for handling mouse-down on menu bar
+.import MGTK__MenuSelect
+MenuSelect       := <MGTK__MenuSelect        ; $31          ; Enter modal loop for handling mouse-down on menu bar
 ;;; .byte       menu_id         (out) Top level menu identifier, or 0 if none
 ;;; .byte       menu_item       (out) Index (1-based) of item in menu, or 0 if none
 
-MenuKey         := $32          ; Find menu item corresponding to keypress
+.import MGTK__MenuKey
+MenuKey          := <MGTK__MenuKey           ; $32          ; Find menu item corresponding to keypress
 ;;; .byte       menu_id         (out)
 ;;; .byte       menu_item       (out)
 ;;; .byte       which_key
 ;;; .byte       key_mods        bit 0=OA, bit 1=SA
 
-HiliteMenu      := $33          ; Toggle highlight state of menu
+.import MGTK__HiliteMenu
+HiliteMenu       := <MGTK__HiliteMenu        ; $33          ; Toggle highlight state of menu
 ;;; .byte       menu_id
 
-DisableMenu     := $34
+.import MGTK__DisableMenu
+DisableMenu      := <MGTK__DisableMenu       ; $34
 ;;; .byte       menu_id
 ;;; .byte       disable         0=enable, 1=disable
 
-DisableItem     := $35
+.import MGTK__DisableItem
+DisableItem      := <MGTK__DisableItem       ; $35
 ;;; .byte       menu_id
 ;;; .byte       menu_item
 ;;; .byte       disable         0=enable, 1=disable
 
-CheckItem       := $36
+.import MGTK__CheckItem
+CheckItem        := <MGTK__CheckItem         ; $36
 ;;; .byte       menu_id
 ;;; .byte       menu_item
 ;;; .byte       check           0=unchecked, 1=checked
 
-SetMark         := $37
+.import MGTK__SetMark
+SetMark          := <MGTK__SetMark           ; $37
 ;;; .byte       menu_id
 ;;; .byte       menu_item
 ;;; .byte       set_char        0=use checkmark, 1=use mark_char
@@ -362,68 +422,84 @@ SetMark         := $37
 ;;; GrafPort    windowport      GrafPort record
 ;;; .addr       nextwinfo       address of next lower window in stack
 
-OpenWindow      := $38
+.import MGTK__OpenWindow
+OpenWindow       := <MGTK__OpenWindow        ; $38
 ;;; (input is address of WInfo record)
 
-CloseWindow     := $39
+.import MGTK__CloseWindow
+CloseWindow      := <MGTK__CloseWindow       ; $39
 ;;; .byte window_id
 
-CloseAll        := $3A
+.import MGTK__CloseAll
+CloseAll         := <MGTK__CloseAll          ; $3A
 ;;; (no parameters)
 
-GetWinPtr       := $3B          ; Get pointer to window params by id; A=0 on success
+.import MGTK__GetWinPtr
+GetWinPtr        := <MGTK__GetWinPtr         ; $3B          ; Get pointer to window params by id; A=0 on success
 ;;; .byte       window_id
 ;;; .addr       window_ptr      (out) winfo address
 
-GetWinPort      := $3C          ; Get drawing state of window (possibly clipped)
+.import MGTK__GetWinPort
+GetWinPort       := <MGTK__GetWinPort        ; $3C          ; Get drawing state of window (possibly clipped)
 ;;; .byte       window_id
 ;;; .addr       port            address of grafport to populate
 
-SetWinPort      := $3D          ; Update port of window
+.import MGTK__SetWinPort
+SetWinPort       := <MGTK__SetWinPort        ; $3D          ; Update port of window
 ;;; .byte       window_id
 ;;; .addr       port            GrafPort to copy from
 
-BeginUpdate     := $3E          ; Respond to update event for window
+.import MGTK__BeginUpdate
+BeginUpdate      := <MGTK__BeginUpdate       ; $3E          ; Respond to update event for window
 ;;; .byte       window_id
 
-EndUpdate       := $3F
+.import MGTK__EndUpdate
+EndUpdate        := <MGTK__EndUpdate         ; $3F
 ;;; (no parameters)
 
-FindWindow      := $40
+.import MGTK__FindWindow
+FindWindow       := <MGTK__FindWindow        ; $40
 ;;; .word       mousex          screen coordinates
 ;;; .word       mousey
 ;;; .byte       which_area      (out) area_*
 ;;; .byte       window_id       (out) of window
 
-FrontWindow     := $41          ; Get id of top window
+.import MGTK__FrontWindow
+FrontWindow      := <MGTK__FrontWindow       ; $41          ; Get id of top window
 ;;; .byte       window_id       (out) window, or 0 if none
 
-SelectWindow    := $42          ; Make window topmost
+.import MGTK__SelectWindow
+SelectWindow     := <MGTK__SelectWindow      ; $42          ; Make window topmost
 ;;; .byte       window_id
 
-TrackGoAway     := $43
+.import MGTK__TrackGoAway
+TrackGoAway      := <MGTK__TrackGoAway       ; $43
 ;;; .byte       clicked         (out) 0 = cancelled, 1 = close
 
-DragWindow      := $44
+.import MGTK__DragWindow
+DragWindow       := <MGTK__DragWindow        ; $44
 ;;; .byte       window_id
 ;;; .word       dragx           mouse coords
 ;;; .word       dragy
 ;;; .byte       moved           high bit set if moved, clear if not
 
-GrowWindow      := $45
+.import MGTK__GrowWindow
+GrowWindow       := <MGTK__GrowWindow        ; $45
 ;;; .byte       window_id
 ;;; .word       mousex
 ;;; .word       mousey
 ;;; .byte       itgrew          (out) 0 = no change, 1 = moved
 
-ScreenToWindow  := $46          ; Map screen coords to content coords
+.import MGTK__ScreenToWindow
+ScreenToWindow   := <MGTK__ScreenToWindow    ; $46          ; Map screen coords to content coords
 ;;; .byte       window_id
 ;;; .word       screenx
 ;;; .word       screeny
 ;;; .word       windowx         (out)
 ;;; .word       windowy         (out)
 
-WindowToScreen  := $47          ; Map content coords to screen coords
+.import MGTK__WindowToScreen
+WindowToScreen   := <MGTK__WindowToScreen    ; $47          ; Map content coords to screen coords
 ;;; .byte       window_id
 ;;; .word       windowx
 ;;; .word       windowy
@@ -433,36 +509,49 @@ WindowToScreen  := $47          ; Map content coords to screen coords
 ;;; --------------------------------------------------
 ;;; Control Manager Calls
 
-FindControl     := $48
+.import MGTK__FindControl
+FindControl      := <MGTK__FindControl       ; $48
 ;;; .word       mousex
 ;;; .word       mousey
 ;;; .byte       which_ctl       ctl_*
 ;;; .byte       which_part      part_*
 
-SetCtlMax       := $49
+.import MGTK__SetCtlMax
+SetCtlMax        := <MGTK__SetCtlMax         ; $49
 ;;; .byte       which_ctl       ctl_*_scroll_bar
 ;;; .byte       ctlmax          maximum value
 
-TrackThumb      := $4A
+.import MGTK__TrackThumb
+TrackThumb       := <MGTK__TrackThumb        ; $4A
 ;;; .byte       which_ctl       ctl_*_scroll_bar
 ;;; .word       mousex
 ;;; .word       mousey
 ;;; .byte       thumbpos        (out) 0...255
 ;;; .byte       thumbmoved      (out) 0 = no change, 1 = moved
 
-UpdateThumb     := $4B
+.import MGTK__UpdateThumb
+UpdateThumb      := <MGTK__UpdateThumb       ; $4B
 ;;; .byte       which_ctl       ctl_*_scroll_bar
 ;;; .byte       thumbpos        new position 0...250
 
-ActivateCtl     := $4C          ; Activate/deactivate scroll bar
+.import MGTK__ActivateCtl
+ActivateCtl      := <MGTK__ActivateCtl       ; $4C          ; Activate/deactivate scroll bar
 ;;; .byte       which_ctl       ctl_*_scroll_bar
 ;;; .byte       activate        0=deactivate, 1=activate
 
-;;; $4D ???
+.import MGTK__BitBlt
+BitBlt           := <MGTK__BitBlt            ; $4D
 ;;; (input length: 16 bytes)
 
-;;; $4E ???
-;;; (input length: 2 bytes)
+
+.if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
+
+.import MGTK__SetMenuSelection
+SetMenuSelection  := <MGTK__SetMenuSelection   ; $4E
+;; (input length: 2 bytes)
+
+.endif
+
 
 ;;; ============================================================
 ;;; Graphics Primitives Constants
@@ -571,6 +660,8 @@ inpoly_outside          := $00
 ;;; ============================================================
 ;;; Offsets
 
+mapinfo_size                       := 16
+
 grafport_offset_viewloc            :=  0
 grafport_offset_viewloc_xcoord     :=  0
 grafport_offset_viewloc_ycoord     :=  2
@@ -627,29 +718,29 @@ font_offset_charwidth           := 3
 
 ;;; Errors
 
-error_empty_object := $81
-error_bad_object := $82
-error_font_too_big := $83
+.importzp error_empty_object       ; $81
+.importzp error_bad_object       ; $82
+.importzp error_font_too_big       ; $83
 
-error_invalid_op_sys := $90
-error_no_mouse := $92
-error_invalid_irq_setting := $93
-error_invalid_hook := $94
-error_desktop_already_initialized := $95
-error_irq_in_use := $97
-error_invalid_event := $98
-error_event_queue_full := $99
-error_menu_not_found := $9A
-error_menu_item_not_found := $9B
-error_insufficient_savebehind_area := $9C
-error_window_already_exists := $9D
-error_window_id_required := $9E
-error_window_not_found := $9F
-error_no_active_window := $A0
-error_window_not_draggable := $A1
-error_window_not_resizable := $A2
-error_window_obscured := $A3
-error_control_not_found := $A4
+.importzp error_invalid_op_sys       ; $90
+.importzp error_no_mouse       ; $92
+.importzp error_invalid_irq_setting       ; $93
+.importzp error_invalid_hook       ; $94
+.importzp error_desktop_already_initialized       ; $95
+.importzp error_irq_in_use       ; $97
+.importzp error_invalid_event       ; $98
+.importzp error_event_queue_full       ; $99
+.importzp error_menu_not_found       ; $9A
+.importzp error_menu_item_not_found       ; $9B
+.importzp error_insufficient_savebehind_area       ; $9C
+.importzp error_window_already_exists       ; $9D
+.importzp error_window_id_required       ; $9E
+.importzp error_window_not_found       ; $9F
+.importzp error_no_active_window       ; $A0
+.importzp error_window_not_draggable       ; $A1
+.importzp error_window_not_resizable       ; $A2
+.importzp error_window_obscured       ; $A3
+.importzp error_control_not_found       ; $A4
 
 
 .endscope ; MGTK

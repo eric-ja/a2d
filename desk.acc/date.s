@@ -4,7 +4,7 @@
         .include "../inc/apple2.inc"
         .include "../inc/prodos.inc"
 
-        .include "../mgtk.inc"
+        .include "../mgtk/mgtk.inc"
         .include "../desktop.inc" ; redraw icons after window move; font; glyphs
         .include "../macros.inc"
 

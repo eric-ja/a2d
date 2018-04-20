@@ -197,6 +197,11 @@ Parameters:
 .addr       textfont        font definition
 ```
 
+Return values:
+```
+error_font_too_big ($83) - The font height is greater than 16.
+```
+
 #### SetTextBG ($0C)
 Set the text background of the current grafport.
 
@@ -265,6 +270,12 @@ Parameters:
 Rect        rect
 ```
 
+Return values:
+```
+inrect_outside ($00) - Point was not in the rect.
+inrect_inside ($80) - Point was in the rect.
+```
+
 #### PaintBits ($14)
 Draw bitmap.
 
@@ -279,6 +290,11 @@ Fill multiple closed polygons with the pattern of the current grafport.
 Parameters:
 ```
 (input is address of PolyList record)
+```
+
+Return values:
+```
+error_bad_object ($82) - The polygon has more than 8 local maxima.
 ```
 
 #### FramePoly ($16)
@@ -395,26 +411,26 @@ event_modifier_solid_apple := 1 << 1
 Menu Bar record:
 ```
 .word       count           Number of menu bar items
-
-.byte       menu_id         Menu identifier
-.byte       disabled        Flag
-.addr       title           Address of length-prefixed string
-.addr       menu            Address of Menu record
-.res 6      reserved        Reserved
-... repeats for each menu
+{
+  .byte     menu_id         Menu identifier
+  .byte     disabled        Flag
+  .addr     title           Address of length-prefixed string
+  .addr     menu            Address of Menu record
+  .res 6    reserved        Reserved
+}... repeats for each menu
 ```
 
 Menu record:
 ```
-.word       count           Number of items in menu
-
+.byte       count           Number of items in menu
 .res  5     reserved        Reserved
-.byte       options         bit 0=OA, 1=SA, 2=mark, 5=check, 6=filler, 7=disabled
-.byte       mark_char       Custom mark character if mark option set
-.byte       char1           ASCII code of shortcut #1 (e.g. uppercase B); or 0
-.byte       char2           ASCII code of shortcut #2 (e.g. lowercase b, or same); or 0
-.addr       name            Address of length-prefixed string
-... repeats for each menu item
+{
+  .byte     options         bit 0=OA, 1=SA, 2=mark, 5=check, 6=filler, 7=disabled
+  .byte     mark_char       Custom mark character if mark option set
+  .byte     char1           ASCII code of shortcut #1 (e.g. uppercase B); or 0
+  .byte     char2           ASCII code of shortcut #2 (e.g. lowercase b, or same); or 0
+  .addr     name            Address of length-prefixed string
+}... repeats for each menu item
 ```
 
 ### Window "winfo"
@@ -431,8 +447,8 @@ Menu record:
 .byte       status
 .byte       reserved
 .word       mincontwidth    minimum content size (horizontal)
-.word       maxcontwidth    maximum content size (horizontal)
 .word       mincontlength   minimum content size (vertical)
+.word       maxcontwidth    maximum content size (horizontal)
 .word       maxcontlength   maximum content size (vertical)
 GrafPort    windowport      GrafPort record
 .addr       nextwinfo       address of next lower window in stack
@@ -477,11 +493,22 @@ Parameters:
 .byte       machine         ROM FBB3 ($06 = IIe or later)
 .byte       subid           ROM FBC0 ($EA = IIe, $E0 = IIe enh/IIgs, $00 = IIc/IIc+)
 .byte       op_sys          0=ProDOS, 1=Pascal
-.byte       slot_num:       Mouse slot, 0 = search (will be filled in)
-.byte       use_interrupts  0=passive, 1=interrupt
+.byte       slot_num        Mouse slot, 0 = search (will be filled in)
+.byte       use_interrupts  
 .addr       sysfontptr
 .addr       savearea        buffer for saving screen data (e.g. behind menus)
 .word       savesize        bytes
+```
+
+Valid use_interrupts values:
+* 0=Passive. Must call CheckEvents periodically.
+* 1=Interrupts enabled
+* 3=Interrupts enabled with [stray IRQ workaround](http://www.1000bit.it/support/manuali/apple/technotes/mous/tn.mous.4.html)
+
+Return values:
+```
+error_invalid_op_sys ($90) - op_sys must be 0 or 1.
+error_invalid_irq_setting ($93) - use_interrupts must be 0, 1, or 3.
 ```
 
 #### StopDeskTop ($1E)
@@ -498,6 +525,12 @@ Parameters:
 .addr       routine_ptr     0=remove hook_id
 ```
 
+Return values:
+```
+error_invalid_hook ($94) - hook_id must be 0 or 1.
+```
+
+
 #### AttachDriver ($20)
 Install pointer driver; A=0 on success, $95 if mouse disabled
 
@@ -505,6 +538,11 @@ Parameters:
 ```
 .addr       hook            Mouse hook routine to install
 .addr       mouse_state     (out) Address of mouse state (.word x, y; .byte status)
+```
+
+Return values:
+```
+error_desktop_not_initialized ($95) - AttachDriver must be called before StartDeskTop.
 ```
 
 #### ScaleMouse ($21)
@@ -569,6 +607,11 @@ Parameters:
 Process mouse/kbd if GetEvent will be delayed.
 
 No parameters.
+
+Return values:
+```
+error_irq_in_use ($97) - Interrupt mode is in use. CheckEvents should not be called.
+```
 
 #### GetEvent ($2A)
 
@@ -799,8 +842,6 @@ Parameters:
 Parameters:
 ```
 .byte       clicked         (out) 0 = cancelled, 1 = close
-.byte       ??              (out)
-.byte       ??              (out)
 ```
 
 #### DragWindow ($44)

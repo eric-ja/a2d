@@ -1,0 +1,32 @@
+
+files			deps
+
+  dispatch.s		version.s zpsave.s
+  shifttables.s
+  hirestables.s
+  fillblit.s            shifttables.s hirestables.s
+  rect.s
+  paintbits.s
+  polygons.s
+  fixeddiv.s
+  framepoly.s
+  lines.s
+  text.s
+  polybufs.s
+  graf.s		
+  zp.s			
+  version.s
+  stdport.s
+  zpsave.s
+  cursor.s
+  start.s
+  event.s
+  menus.s
+  windows.s
+  drawicon.s
+  controls.s
+  keyboardmouse.s
+  setmenuselection.s
+  mouse.s
+  
+

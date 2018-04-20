@@ -31,8 +31,8 @@ function stats {
 #do_make clean
 do_make all
 
-COMMON="loader mgtk desktop invoker ovl1 ovl1a ovl1b ovl1c ovl2"
-TARGETS="$COMMON ovl34567"
+COMMON="loader desktop invoker ovl1 ovl1a ovl1b ovl1c ovl2"
+TARGETS="$COMMON ovl34567 mgtk"
 SOURCES="sys $COMMON ovl3 ovl4 ovl5 ovl6 ovl7"
 
 # Verify original and output match
