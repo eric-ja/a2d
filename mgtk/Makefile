@@ -42,11 +42,12 @@ OBJS = out-%/dispatch.o \
 all: out-$(VERSION)/mgtk
 .SECONDARY:
 
-out-%/print-objs: $(OBJS)
-	@echo $(foreach obj, $^, $(shell pwd)/$(obj))
-
 out-%/mgtk: $(OBJS)
 	$(CC65)/ld65 --config asmo65.cfg -m $@.map -o $@ $^
+
+out-%/mgtk.lib: $(OBJS)
+	-rm $@
+	$(CC65)/ar65 a $@ $^
 
 $(OUTDIR):
 	mkdir -p $@

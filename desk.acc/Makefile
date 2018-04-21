@@ -14,7 +14,7 @@ TARGETS = $(patsubst %,$(OUTDIR)/%.$$F1,$(DAS))
 
 MGTK_VERSION ?= 1.0.0f1
 MGTK_DEFS = $(shell ../mgtk/res/parseversion.pl $(MGTK_VERSION))
-MGTK_OBJS = $(shell make -sC ../mgtk out-$(MGTK_VERSION)/print-objs)
+MGTK_LIB = ../mgtk/out-$(MGTK_VERSION)/mgtk.lib
 
 
 .PHONY: clean all
@@ -22,6 +22,9 @@ all: $(OUTDIR) $(TARGETS)
 
 $(OUTDIR):
 	mkdir -p $(OUTDIR)
+
+$(MGTK_LIB):
+	make -C ../mgtk out-$(MGTK_VERSION)/mgtk.lib
 
 clean:
 	rm -f $(OUTDIR)/*.o
@@ -34,12 +37,12 @@ $(OUTDIR)/%.o: %.s $(HEADERS)
 	$(CC65)/ca65 $(CAFLAGS) $(MGTK_DEFS) --listing $(basename $@).list -o $@ $<
 
 # Built DeskTop segments
-$(OUTDIR)/%.built: $(OUTDIR)/%.o asm.cfg
-	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_OBJS)
+$(OUTDIR)/%.built: $(OUTDIR)/%.o asm.cfg $(MGTK_LIB)
+	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_LIB)
 
 # Desk Accessories .$F1
-$(OUTDIR)/%.$$F1: $(OUTDIR)/%.o
-	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_OBJS)
+$(OUTDIR)/%.$$F1: $(OUTDIR)/%.o $(MGTK_LIB)
+	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_LIB)
 	xattr -w prodos.AuxType '@' '$@'
 
 # System Files .SYS

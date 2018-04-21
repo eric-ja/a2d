@@ -15,7 +15,7 @@ TARGETS = $(patsubst %,$(OUTDIR)/%.built,$(SEGMENTS)) out/sys.SYS
 
 MGTK_VERSION = 1.0.0f1
 MGTK_DEFS = $(shell ../mgtk/res/parseversion.pl $(MGTK_VERSION))
-MGTK_OBJS = $(shell make -sC ../mgtk out-$(MGTK_VERSION)/print-objs)
+MGTK_LIB = ../mgtk/out-$(MGTK_VERSION)/mgtk.lib
 
 
 .PHONY: clean all
@@ -23,6 +23,9 @@ all: $(OUTDIR) $(TARGETS)
 
 $(OUTDIR):
 	mkdir -p $(OUTDIR)
+
+$(MGTK_LIB):
+	make -C ../mgtk out-$(MGTK_VERSION)/mgtk.lib
 
 clean:
 	rm -f $(OUTDIR)/*.o
@@ -37,12 +40,12 @@ $(OUTDIR)/ovl34567.o: ovl34567.s $(HEADERS) ovl3.s ovl4.s ovl5.s ovl6.s ovl7.s
 $(OUTDIR)/%.o: %.s $(HEADERS)
 	$(CC65)/ca65 $(CAFLAGS) $(MGTK_DEFS) --listing $(basename $@).list -o $@ $<
 
-$(OUTDIR)/mgtk.built: $(MGTK_OBJS) asm.cfg
-	$(CC65)/ld65 $(CCFLAGS_MGTK) -o '$@' $(MGTK_OBJS)
+$(OUTDIR)/mgtk.built: $(MGTK_LIB) asm.cfg
+	$(CC65)/ld65 $(CCFLAGS_MGTK) -o '$@' $(MGTK_LIB)
 
 # Built DeskTop segments
-$(OUTDIR)/%.built: $(OUTDIR)/%.o $(MGTK_OBJS) asm.cfg
-	$(CC65)/ld65 $(CCFLAGS_MGTK) -o '$@' $< $(MGTK_OBJS)
+$(OUTDIR)/%.built: $(OUTDIR)/%.o $(MGTK_LIB) asm.cfg
+	$(CC65)/ld65 $(CCFLAGS_MGTK) -o '$@' $< $(MGTK_LIB)
 
 # Desk Accessories .$F1
 $(OUTDIR)/%.$$F1: $(OUTDIR)/%.o
