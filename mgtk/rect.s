@@ -16,10 +16,10 @@
         .segment "MGTK_CODE"
 
 
-        .import exit_with_a
-        .import do_fill
-        .import set_dest
-        .import set_up_fill_mode
+        MGTK_IMPORT exit_with_a
+        MGTK_IMPORT do_fill
+        MGTK_IMPORT set_dest
+        MGTK_IMPORT set_up_fill_mode
 
 
 ;;; ============================================================

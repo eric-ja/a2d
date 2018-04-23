@@ -15,49 +15,42 @@
         .segment "MGTK_CODE"
 
 
-        .import DrawTextImpl
-        .import HideCursorImpl
-        .import KeyboardMouseImpl
-        .import SetPenModeImpl
-        .import ShowCursorImpl
-        .import adjust_xpos
-        .import div7_table
-        .import fixed_div
-        .importzp fixed_div__dividend
-        .importzp fixed_div__divisor
-        .importzp fixed_div__quotient
-        .import hide_cursor_save_params
-        .import hires_table_hi
-        .import hires_table_lo
-        .import kbd_menu_return
-        .import kbd_menu_select
-        .import kbd_mouse_init_tracking
-        .import kbd_mouse_state
-        .import measure_text
-        .importzp measure_text__data
-        .importzp measure_text__length
-        .import movement_cancel
-        .import mult_x_y
-        .import restore_params_active_port
-        .import save_params_and_stack
-        .import savebehind_size
-        .import savebehind_usage
-        .import sel_menu_index
-        .import sel_menu_item_index
-        .import set_pos_params__xcoord
-        .import set_pos_params__ycoord
-        .import set_standard_port
-        .import show_cursor_and_restore
-        .import standard_port__penpattern
-        .import standard_port__textfont
-        .import store_xa_at_params
-
-        .import MGTK__FrameRect
-        .import MGTK__GetEvent
-        .import MGTK__InRect
-        .import MGTK__PaintRect
-        .import MGTK__SetPattern
-        .import MGTK__MoveTo
+        MGTK_IMPORT DrawTextImpl
+        MGTK_IMPORT HideCursorImpl
+        MGTK_IMPORT KeyboardMouseImpl
+        MGTK_IMPORT SetPenModeImpl
+        MGTK_IMPORT ShowCursorImpl
+        MGTK_IMPORT adjust_xpos
+        MGTK_IMPORT div7_table
+        MGTK_IMPORT fixed_div
+        MGTK_IMPORTZP fixed_div__dividend
+        MGTK_IMPORTZP fixed_div__divisor
+        MGTK_IMPORTZP fixed_div__quotient
+        MGTK_IMPORT hide_cursor_save_params
+        MGTK_IMPORT hires_table_hi
+        MGTK_IMPORT hires_table_lo
+        MGTK_IMPORT kbd_menu_return
+        MGTK_IMPORT kbd_menu_select
+        MGTK_IMPORT kbd_mouse_init_tracking
+        MGTK_IMPORT kbd_mouse_state
+        MGTK_IMPORT measure_text
+        MGTK_IMPORTZP measure_text__data
+        MGTK_IMPORTZP measure_text__length
+        MGTK_IMPORT movement_cancel
+        MGTK_IMPORT mult_x_y
+        MGTK_IMPORT restore_params_active_port
+        MGTK_IMPORT save_params_and_stack
+        MGTK_IMPORT savebehind_size
+        MGTK_IMPORT savebehind_usage
+        MGTK_IMPORT sel_menu_index
+        MGTK_IMPORT sel_menu_item_index
+        MGTK_IMPORT set_pos_params__xcoord
+        MGTK_IMPORT set_pos_params__ycoord
+        MGTK_IMPORT set_standard_port
+        MGTK_IMPORT show_cursor_and_restore
+        MGTK_IMPORT standard_port__penpattern
+        MGTK_IMPORT standard_port__textfont
+        MGTK_IMPORT store_xa_at_params
 
 
 ;;; ============================================================
@@ -329,7 +322,7 @@ mouse_x:   .word  0
 mouse_y:   .word  0
         END_PARAM_BLOCK
 
-        MGTK_CALL MGTK__GetEvent, event
+        MGTK_CALL MGTK::GetEvent, event
         return  event
 .endproc
 
@@ -502,10 +495,10 @@ filler: ldx     menu_item_index
         stax    draw_params
         lda     #MGTK::pencopy
         jsr     set_fill_mode
-        MGTK_CALL MGTK__PaintRect, 0, fill_params
+        MGTK_CALL MGTK::PaintRect, 0, fill_params
         lda     #MGTK::notpencopy
         jsr     set_fill_mode
-        MGTK_CALL MGTK__FrameRect, 0, draw_params
+        MGTK_CALL MGTK::FrameRect, 0, draw_params
         rts
 .endproc
 
@@ -664,7 +657,7 @@ loop:   lda     curmenu::x_min,x
 
         lda     #MGTK::penXOR
         jsr     set_fill_mode
-        MGTK_CALL MGTK__PaintRect, fill_rect_params2
+        MGTK_CALL MGTK::PaintRect, fill_rect_params2
         rts
 .endproc
 
@@ -842,13 +835,13 @@ event_loop:
         bpl     :+
         jmp     kbd_menu_return
 
-:       MGTK_CALL MGTK__MoveTo, get_and_return_event::event::mouse_pos
-        MGTK_CALL MGTK__InRect, test_rect_params      ; test in menu bar
+:       MGTK_CALL MGTK::MoveTo, get_and_return_event::event::mouse_pos
+        MGTK_CALL MGTK::InRect, test_rect_params      ; test in menu bar
         bne     in_menu_bar
         lda     cur_open_menu
         beq     in_menu
 
-        MGTK_CALL MGTK__InRect, test_rect_params2     ; test in menu
+        MGTK_CALL MGTK::InRect, test_rect_params2     ; test in menu
         bne     in_menu_item
         jsr     unhilite_cur_menu_item
 
@@ -1186,13 +1179,13 @@ next:   ldx     menu_item_index
         add16lc curmenuinfo::x_min, #5, fill_rect_params3_left
         sub16lc curmenuinfo::x_max, #5, fill_rect_params3_right
 
-        MGTK_CALL MGTK__SetPattern, light_speckle_pattern
+        MGTK_CALL MGTK::SetPattern, light_speckle_pattern
 
         lda     #MGTK::penOR
         jsr     set_fill_mode
 
-        MGTK_CALL MGTK__PaintRect, fill_rect_params3
-        MGTK_CALL MGTK__SetPattern, standard_port__penpattern
+        MGTK_CALL MGTK::PaintRect, fill_rect_params3
+        MGTK_CALL MGTK::SetPattern, standard_port__penpattern
 
         lda     #MGTK::penXOR
         jsr     set_fill_mode
@@ -1254,7 +1247,7 @@ hmrts:  rts
 
         lda     #MGTK::penXOR
         jsr     set_fill_mode
-        MGTK_CALL MGTK__PaintRect, fill_rect_params4
+        MGTK_CALL MGTK::PaintRect, fill_rect_params4
         jmp     ShowCursorImpl
 .endproc
 

@@ -15,61 +15,59 @@
         .segment "MGTK_CODE"
 
 
-        .import HiliteMenuImpl
-        .importzp MenuSelectImpl__params__menu_id
-        .importzp MenuSelectImpl__params__menu_item
-        .import SetCursorImpl
+        MGTK_IMPORT HiliteMenuImpl
+        MGTK_IMPORTZP MenuSelectImpl__params__menu_id
+        MGTK_IMPORTZP MenuSelectImpl__params__menu_item
+        MGTK_IMPORT SetCursorImpl
 
-        .importzp curmenu__disabled
-        .importzp curmenu__menu_id
-        .importzp curmenu__x_min
-        .importzp curmenuitem__options
-        .importzp current_winfo__options
-        .importzp find_menu_id
-        .importzp find_options
-        .importzp find_shortcut
-        .importzp winrect
-        .importzp winrect__x1
-        .importzp winrect__y1
-        .importzp winrect__x2
-        .importzp winrect__y2
+        MGTK_IMPORTZP curmenu__disabled
+        MGTK_IMPORTZP curmenu__menu_id
+        MGTK_IMPORTZP curmenu__x_min
+        MGTK_IMPORTZP curmenuitem__options
+        MGTK_IMPORTZP current_winfo__options
+        MGTK_IMPORTZP find_menu_id
+        MGTK_IMPORTZP find_options
+        MGTK_IMPORTZP find_shortcut
+        MGTK_IMPORTZP winrect
+        MGTK_IMPORTZP winrect__x1
+        MGTK_IMPORTZP winrect__y1
+        MGTK_IMPORTZP winrect__x2
+        MGTK_IMPORTZP winrect__y2
 
-        .import active_cursor
-        .import call_mouse
-        .import cur_hilited_menu_item
-        .import cur_open_menu
-        .import drag_curpos
-        .import drag_initialpos
-        .import drag_initialpos__xcoord
-        .import drag_initialpos__ycoord
-        .import drag_resize_flag
-        .import draw_menu
-        .import find_menu
-        .importzp find_mode_by_shortcut
-        .import get_menu
-        .import get_menu_item
-        .import get_winframerect
-        .import hide_menu
-        .import hilite_menu_item
-        .import input__modifiers
-        .importzp menu_count
-        .importzp menu_item_count
-        .import menu_item_y_table
-        .import mouse_hooked_flag
-        .import mouse_scale_x
-        .import mouse_scale_y
-        .import mouse_status
-        .import mouse_x
-        .import mouse_y
-        .import pointer_cursor_addr
-        .import read_mouse_pos
-        .import restore_params_active_port
-        .importzp screen_height
-        .import screen_width
-        .import set_pos_params
-        .import store_xa_at_params
-
-        .import MGTK__PostEvent
+        MGTK_IMPORT active_cursor
+        MGTK_IMPORT call_mouse
+        MGTK_IMPORT cur_hilited_menu_item
+        MGTK_IMPORT cur_open_menu
+        MGTK_IMPORT drag_curpos
+        MGTK_IMPORT drag_initialpos
+        MGTK_IMPORT drag_initialpos__xcoord
+        MGTK_IMPORT drag_initialpos__ycoord
+        MGTK_IMPORT drag_resize_flag
+        MGTK_IMPORT draw_menu
+        MGTK_IMPORT find_menu
+        MGTK_IMPORTZP find_mode_by_shortcut
+        MGTK_IMPORT get_menu
+        MGTK_IMPORT get_menu_item
+        MGTK_IMPORT get_winframerect
+        MGTK_IMPORT hide_menu
+        MGTK_IMPORT hilite_menu_item
+        MGTK_IMPORT input__modifiers
+        MGTK_IMPORTZP menu_count
+        MGTK_IMPORTZP menu_item_count
+        MGTK_IMPORT menu_item_y_table
+        MGTK_IMPORT mouse_hooked_flag
+        MGTK_IMPORT mouse_scale_x
+        MGTK_IMPORT mouse_scale_y
+        MGTK_IMPORT mouse_status
+        MGTK_IMPORT mouse_x
+        MGTK_IMPORT mouse_y
+        MGTK_IMPORT pointer_cursor_addr
+        MGTK_IMPORT read_mouse_pos
+        MGTK_IMPORT restore_params_active_port
+        MGTK_IMPORTZP screen_height
+        MGTK_IMPORT screen_width
+        MGTK_IMPORT set_pos_params
+        MGTK_IMPORT store_xa_at_params
 
 
 ;;; ============================================================
@@ -731,7 +729,7 @@ no_grow:
         sta     kbd_mouse_state
         lda     #MGTK::error_window_not_resizable
         plp
-        jmp     exit_with_a
+        jmp     MGTK__exit_with_a
 
 do_drag:
         lda     current_winfo__options
@@ -952,7 +950,7 @@ not_left:
 
 
 .proc set_input
-        MGTK_CALL MGTK__PostEvent, set_input_params
+        MGTK_CALL MGTK::PostEvent, set_input_params
         rts
 .endproc
 

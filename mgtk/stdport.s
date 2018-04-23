@@ -13,8 +13,8 @@
         .segment "MGTK_CODE"
 
 
-        .import screen_width
-        .importzp screen_height
+        MGTK_IMPORT screen_width
+        MGTK_IMPORTZP screen_height
 
 
 ;;; ============================================================

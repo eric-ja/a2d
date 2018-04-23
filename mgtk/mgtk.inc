@@ -4,7 +4,8 @@
 
 .scope MGTK
 
-MLI     := $4000
+        .import MGTK__dispatch
+MLI     := MGTK__dispatch
         ;; MLI-style call (jsr MLI ; .byte call ; .addr params)
         ;; Call from AUX (RAMRDON/RAMWRTON)
 
@@ -718,29 +719,29 @@ font_offset_charwidth           := 3
 
 ;;; Errors
 
-.importzp error_empty_object       ; $81
-.importzp error_bad_object       ; $82
-.importzp error_font_too_big       ; $83
+.importzp error_empty_object                  ; $81
+.importzp error_bad_object                    ; $82
+.importzp error_font_too_big                  ; $83
 
-.importzp error_invalid_op_sys       ; $90
-.importzp error_no_mouse       ; $92
-.importzp error_invalid_irq_setting       ; $93
-.importzp error_invalid_hook       ; $94
-.importzp error_desktop_already_initialized       ; $95
-.importzp error_irq_in_use       ; $97
-.importzp error_invalid_event       ; $98
-.importzp error_event_queue_full       ; $99
-.importzp error_menu_not_found       ; $9A
-.importzp error_menu_item_not_found       ; $9B
-.importzp error_insufficient_savebehind_area       ; $9C
-.importzp error_window_already_exists       ; $9D
-.importzp error_window_id_required       ; $9E
-.importzp error_window_not_found       ; $9F
-.importzp error_no_active_window       ; $A0
-.importzp error_window_not_draggable       ; $A1
-.importzp error_window_not_resizable       ; $A2
-.importzp error_window_obscured       ; $A3
-.importzp error_control_not_found       ; $A4
+.importzp error_invalid_op_sys                ; $90
+.importzp error_no_mouse                      ; $92
+.importzp error_invalid_irq_setting           ; $93
+.importzp error_invalid_hook                  ; $94
+.importzp error_desktop_already_initialized   ; $95
+.importzp error_irq_in_use                    ; $97
+.importzp error_invalid_event                 ; $98
+.importzp error_event_queue_full              ; $99
+.importzp error_menu_not_found                ; $9A
+.importzp error_menu_item_not_found           ; $9B
+.importzp error_insufficient_savebehind_area  ; $9C
+.importzp error_window_already_exists         ; $9D
+.importzp error_window_id_required            ; $9E
+.importzp error_window_not_found              ; $9F
+.importzp error_no_active_window              ; $A0
+.importzp error_window_not_draggable          ; $A1
+.importzp error_window_not_resizable          ; $A2
+.importzp error_window_obscured               ; $A3
+.importzp error_control_not_found             ; $A4
 
 
 .endscope ; MGTK

@@ -13,11 +13,11 @@
         .segment "MGTK_CODE"
 
 
-        .import BitBltImpl
-        .importzp PaintBitsImpl__dbi_left
-        .import div7_table
-        .importzp icon_offset_width
-        .importzp src_mapwidth
+        MGTK_IMPORT BitBltImpl
+        MGTK_IMPORTZP PaintBitsImpl__dbi_left
+        MGTK_IMPORT div7_table
+        MGTK_IMPORTZP icon_offset_width
+        MGTK_IMPORTZP src_mapwidth
 
 
 ;;; ============================================================

@@ -15,44 +15,40 @@
         .segment "MGTK_CODE"
 
 
-        .import standard_port
-        .import saved_port
-        .import apply_port_to_active_port
-        .import PaintRectImpl
-        .import SetPenModeImpl
-        .import SetPatternImpl
-        .import SetPortBitsImpl
-        .import SetFontImpl
-        .import SetFontImpl__prepare_font
+        MGTK_IMPORT standard_port
+        MGTK_IMPORT saved_port
+        MGTK_IMPORT apply_port_to_active_port
+        MGTK_IMPORT SetPenModeImpl
+        MGTK_IMPORT SetPatternImpl
+        MGTK_IMPORT SetPortBitsImpl
+        MGTK_IMPORT SetFontImpl
+        MGTK_IMPORT SetFontImpl__prepare_font
 
-        .import MoveImpl
-        .importzp MoveImpl__params
-        .import LineImpl
-        .importzp LineImpl__params
-        .import LineToImpl
-        .importzp LineToImpl__params
-        .import PaintRectImpl
-        .importzp PaintRectImpl__params
-        .import FrameRectImpl
-        .importzp FrameRectImpl__params
-        .import InRectImpl
-        .importzp InRectImpl__params
-        .import PaintBitsImpl
-        .importzp PaintBitsImpl__params
+        MGTK_IMPORT MoveImpl
+        MGTK_IMPORTZP MoveImpl__params
+        MGTK_IMPORT LineImpl
+        MGTK_IMPORTZP LineImpl__params
+        MGTK_IMPORT LineToImpl
+        MGTK_IMPORTZP LineToImpl__params
+        MGTK_IMPORT PaintRectImpl
+        MGTK_IMPORTZP PaintRectImpl__params
+        MGTK_IMPORT FrameRectImpl
+        MGTK_IMPORTZP FrameRectImpl__params
+        MGTK_IMPORT InRectImpl
+        MGTK_IMPORTZP InRectImpl__params
+        MGTK_IMPORT PaintBitsImpl
+        MGTK_IMPORTZP PaintBitsImpl__params
 
-        .import PaintPolyImpl
-        .importzp PaintPolyImpl__params
-        .import FramePolyImpl
-        .importzp FramePolyImpl__params
-        .import InPolyImpl
-        .importzp InPolyImpl__params
+        MGTK_IMPORT PaintPolyImpl
+        MGTK_IMPORT FramePolyImpl
+        MGTK_IMPORT InPolyImpl
 
-        .import TextWidthImpl
-        .importzp TextWidthImpl__params
-        .import DrawTextImpl
-        .importzp DrawTextImpl__params
+        MGTK_IMPORT TextWidthImpl
+        MGTK_IMPORTZP TextWidthImpl__params
+        MGTK_IMPORT DrawTextImpl
+        MGTK_IMPORTZP DrawTextImpl__params
 
-        .import jt_rts
+        MGTK_IMPORT jt_rts
 
 
 

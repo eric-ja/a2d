@@ -13,8 +13,8 @@
         .segment "MGTK_CODE"
 
 
-        .import PaintPolyImpl
-        .import draw_line
+        MGTK_IMPORT PaintPolyImpl
+        MGTK_IMPORT draw_line
 
 
 ;;; ============================================================

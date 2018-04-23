@@ -16,18 +16,19 @@
 
 
 
-        .import mouse_operand
-        .import mouse_firmware_hi
-        .import no_mouse_flag
-        .import hires_table_lo, hires_table_hi
-        .import kbd_mouse_state
-        .import store_xa_at_params
-        .import handle_keyboard_mouse
-        .import divmod7
-        .import mod7_table
-        .import shift_table_aux
-        .import shift_table_main
-        .import use_interrupts
+        MGTK_IMPORT mouse_operand
+        MGTK_IMPORT mouse_firmware_hi
+        MGTK_IMPORT no_mouse_flag
+        MGTK_IMPORT hires_table_lo
+        MGTK_IMPORT hires_table_hi
+        MGTK_IMPORT kbd_mouse_state
+        MGTK_IMPORT store_xa_at_params
+        MGTK_IMPORT handle_keyboard_mouse
+        MGTK_IMPORT divmod7
+        MGTK_IMPORT mod7_table
+        MGTK_IMPORT shift_table_aux
+        MGTK_IMPORT shift_table_main
+        MGTK_IMPORT use_interrupts
 
 
 

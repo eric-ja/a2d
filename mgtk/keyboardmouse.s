@@ -13,8 +13,8 @@
         .segment "MGTK_CODE"
 
 
-        .import FlushEventsImpl
-        .import kbd_mouse_state
+        MGTK_IMPORT FlushEventsImpl
+        MGTK_IMPORT kbd_mouse_state
 
 
 ;;; ============================================================

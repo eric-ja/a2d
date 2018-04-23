@@ -10,6 +10,7 @@
         .include "../macros.inc"
 
         .include "mgtk-zp.inc"
+        .include "mgtk-macros.inc"
 
         .segment "MGTK_CODE"
 
@@ -35,13 +36,13 @@
         bitmap_buffer   := $0601        ; scratchpad area for drawing bitmaps/patterns
 
 
-        .import mod7_table
-        .import div7_table
-        .import hires_table_lo
-        .import hires_table_hi
-        .import shift_1_aux
-        .import shift_1_main
-        .import src_width_bytes
+        MGTK_IMPORT mod7_table
+        MGTK_IMPORT div7_table
+        MGTK_IMPORT hires_table_lo
+        MGTK_IMPORT hires_table_hi
+        MGTK_IMPORT shift_1_aux
+        MGTK_IMPORT shift_1_main
+        MGTK_IMPORT src_width_bytes
 
 
 ;;; ============================================================

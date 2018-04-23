@@ -4,12 +4,23 @@
 
 
 .macro exit_call arg
-        .if !.def(exit_with_a)
-        .import exit_with_a
+        .if !.def(MGTK__exit_with_a)
+        .import MGTK__exit_with_a
         .endif
 
         lda     #arg
-        jmp     exit_with_a
+        jmp     MGTK__exit_with_a
+.endmacro
+
+
+.macro MGTK_IMPORT name
+        .import .ident( .sprintf("MGTK__%s", .string(name)) )
+        name := .ident( .sprintf("MGTK__%s", .string(name)) )
+.endmacro
+
+.macro MGTK_IMPORTZP name
+        .importzp .ident( .sprintf("MGTK__%s", .string(name)) )
+        name := .ident( .sprintf("MGTK__%s", .string(name)) )
 .endmacro
 
 

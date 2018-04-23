@@ -17,16 +17,17 @@
 ;;; ============================================================
 ;;; Call Dispatcher
 
-        .import desktop_initialized_flag
-        .import active_saved
-        .import zp_saved
-        .import stack_ptr_stash
-        .import preserve_zp_flag
-        .import HideCursorImpl
-        .import ShowCursorImpl
+        MGTK_IMPORT desktop_initialized_flag
+        MGTK_IMPORT active_saved
+        MGTK_IMPORT zp_saved
+        MGTK_IMPORT stack_ptr_stash
+        MGTK_IMPORT preserve_zp_flag
+        MGTK_IMPORT HideCursorImpl
+        MGTK_IMPORT ShowCursorImpl
 
 
         .segment "MGTK_DISPATCH"
+
 
 .proc dispatch
 
@@ -210,6 +211,7 @@ hide_cursor_count:
         ;; routine needs to do is copy params into
         ;; the zero page (port)
         jt_rts := dispatch::rts1
+
 
         .import __MGTK_JUMPTABLE_RUN__
 jump_table := __MGTK_JUMPTABLE_RUN__

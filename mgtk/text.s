@@ -15,15 +15,16 @@
         .segment "MGTK_CODE"
 
 
-        .import shift_table_main
-        .import shift_table_aux
-        .import hires_table_lo, hires_table_hi
-        .import adjust_xpos
-        .import set_up_fill_mode
-        .import set_dest
-        .import clip_rect
-        .import maybe_stash_low_zp
-        .import maybe_unstash_low_zp
+        MGTK_IMPORT shift_table_main
+        MGTK_IMPORT shift_table_aux
+        MGTK_IMPORT hires_table_lo
+        MGTK_IMPORT hires_table_hi
+        MGTK_IMPORT adjust_xpos
+        MGTK_IMPORT set_up_fill_mode
+        MGTK_IMPORT set_dest
+        MGTK_IMPORT clip_rect
+        MGTK_IMPORT maybe_stash_low_zp
+        MGTK_IMPORT maybe_unstash_low_zp
 
 
 ;;; ============================================================

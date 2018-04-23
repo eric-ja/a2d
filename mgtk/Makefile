@@ -39,7 +39,7 @@ OBJS = out-%/dispatch.o \
        out-%/zp.o
   
 
-all: out-$(VERSION)/mgtk
+all: out-$(VERSION)/mgtk out-$(VERSION)/mgtk.lib
 .SECONDARY:
 
 out-%/mgtk: $(OBJS)
@@ -53,7 +53,7 @@ $(OUTDIR):
 	mkdir -p $@
 
 %-exp.inc: %.s
-	../res/genexports.pl < $< > $@
+	../res/genexports.pl MGTK < $< > $@
 
 $(OBJPATTERN):  MGTK_VERSION_DEFS=$(shell ./res/parseversion.pl $(subst out-,,$(subst /,,$(dir $@))))
 $(OBJPATTERN): %.s %-exp.inc $(OUTDIR)

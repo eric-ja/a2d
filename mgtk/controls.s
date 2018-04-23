@@ -13,52 +13,48 @@
         .segment "MGTK_CODE"
 
 
-        .import FindWindowImpl__return_result
-        .import HideCursorImpl
-        .import ShowCursorImpl
+        MGTK_IMPORT FindWindowImpl__return_result
+        MGTK_IMPORT HideCursorImpl
+        MGTK_IMPORT ShowCursorImpl
 
-        .import check_if_changed
-        .importzp current_winfo
-        .importzp current_winfo__hscroll
-        .importzp current_winfo__options
-        .importzp current_winfo__vscroll
-        .import drag_curpos
-        .import drag_delta
-        .import drag_initialpos
-        .import fill_and_frame_rect
-        .import fixed_div
-        .importzp fixed_div_dividend
-        .importzp fixed_div_divisor
-        .importzp fixed_div_quotient
-        .import frame_winrect
-        .import get_and_return_event
-        .import get_win_horizscrollrect
-        .import get_win_vertscrollrect
-        .import get_winrect
-        .import hide_cursor_save_params
-        .import in_winrect
-        .import return_winrect
-        .import save_params_and_stack
-        .import set_desktop_port
-        .import set_fill_mode
-        .import set_standard_port
-        .import show_cursor_and_restore
-        .import standard_port__penpattern
-        .import store_xa_at_y
-        .import top_window
-        .importzp which_control
-        .importzp which_control_horiz
-        .importzp which_control_vert
-        .importzp window
-        .importzp winrect
-        .importzp winrect__x1
-        .importzp winrect__y1
-        .importzp winrect__x2
-        .importzp winrect__y2
-
-        .import MGTK__PaintRect
-        .import MGTK__SetPattern
-
+        MGTK_IMPORT check_if_changed
+        MGTK_IMPORTZP current_winfo
+        MGTK_IMPORTZP current_winfo__hscroll
+        MGTK_IMPORTZP current_winfo__options
+        MGTK_IMPORTZP current_winfo__vscroll
+        MGTK_IMPORT drag_curpos
+        MGTK_IMPORT drag_delta
+        MGTK_IMPORT drag_initialpos
+        MGTK_IMPORT fill_and_frame_rect
+        MGTK_IMPORT fixed_div
+        MGTK_IMPORTZP fixed_div_dividend
+        MGTK_IMPORTZP fixed_div_divisor
+        MGTK_IMPORTZP fixed_div_quotient
+        MGTK_IMPORT frame_winrect
+        MGTK_IMPORT get_and_return_event
+        MGTK_IMPORT get_win_horizscrollrect
+        MGTK_IMPORT get_win_vertscrollrect
+        MGTK_IMPORT get_winrect
+        MGTK_IMPORT hide_cursor_save_params
+        MGTK_IMPORT in_winrect
+        MGTK_IMPORT return_winrect
+        MGTK_IMPORT save_params_and_stack
+        MGTK_IMPORT set_desktop_port
+        MGTK_IMPORT set_fill_mode
+        MGTK_IMPORT set_standard_port
+        MGTK_IMPORT show_cursor_and_restore
+        MGTK_IMPORT standard_port__penpattern
+        MGTK_IMPORT store_xa_at_y
+        MGTK_IMPORT top_window
+        MGTK_IMPORTZP which_control
+        MGTK_IMPORTZP which_control_horiz
+        MGTK_IMPORTZP which_control_vert
+        MGTK_IMPORTZP window
+        MGTK_IMPORTZP winrect
+        MGTK_IMPORTZP winrect__x1
+        MGTK_IMPORTZP winrect__y1
+        MGTK_IMPORTZP winrect__x2
+        MGTK_IMPORTZP winrect__y2
 
 
 ;;; ============================================================
@@ -119,7 +115,7 @@ toggle: eor     params::activate
 
         jsr     get_scrollbar_scroll_area
         jsr     set_standard_port
-        MGTK_CALL MGTK__PaintRect, winrect
+        MGTK_CALL MGTK::PaintRect, winrect
         rts
 
 do_draw:
@@ -136,9 +132,9 @@ has_scroll:
         jsr     set_standard_port
         jsr     get_scrollbar_scroll_area
 
-        MGTK_CALL MGTK__SetPattern, light_speckles_pattern
-        MGTK_CALL MGTK__PaintRect, winrect
-        MGTK_CALL MGTK__SetPattern, standard_port__penpattern
+        MGTK_CALL MGTK::SetPattern, light_speckles_pattern
+        MGTK_CALL MGTK::PaintRect, winrect
+        MGTK_CALL MGTK::SetPattern, standard_port__penpattern
 
         bit     which_control
         bmi     vert_thumb
@@ -538,7 +534,7 @@ got_ctl:lda     params::which_ctl
 
         lda     #MGTK::penXOR
         jsr     set_fill_mode
-        MGTK_CALL MGTK__SetPattern, light_speckles_pattern
+        MGTK_CALL MGTK::SetPattern, light_speckles_pattern
 
         jsr     HideCursorImpl
 drag_loop:

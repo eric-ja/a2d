@@ -13,11 +13,11 @@
         .segment "MGTK_CODE"
 
 
-        .import dispatch__cleanup
-        .import low_zp_stash_buffer
-        .import low_zp_stash_flag
-        .import preserve_zp_flag
-        .import rts3
+        MGTK_IMPORT dispatch__cleanup
+        MGTK_IMPORT low_zp_stash_buffer
+        MGTK_IMPORT low_zp_stash_flag
+        MGTK_IMPORT preserve_zp_flag
+        MGTK_IMPORT rts3
 
 
 ;;; ============================================================

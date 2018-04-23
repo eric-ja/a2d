@@ -15,19 +15,19 @@
         .segment "MGTK_CODE"
 
 
-        .import activate_keyboard_mouse
-        .import always_handle_irq
-        .import call_after_events_hook
-        .import call_before_events_hook
-        .import call_mouse
-        .import kbd_mouse_state
-        .import mouse_status
-        .import move_cursor
-        .import set_mouse_pos
-        .import set_pos_params
-        .import store_xa_at_params
-        .import use_interrupts
-        .import exit_with_a
+        MGTK_IMPORT activate_keyboard_mouse
+        MGTK_IMPORT always_handle_irq
+        MGTK_IMPORT call_after_events_hook
+        MGTK_IMPORT call_before_events_hook
+        MGTK_IMPORT call_mouse
+        MGTK_IMPORT kbd_mouse_state
+        MGTK_IMPORT mouse_status
+        MGTK_IMPORT move_cursor
+        MGTK_IMPORT set_mouse_pos
+        MGTK_IMPORT set_pos_params
+        MGTK_IMPORT store_xa_at_params
+        MGTK_IMPORT use_interrupts
+        MGTK_IMPORT exit_with_a
 
 
 ;;; ============================================================

@@ -13,63 +13,56 @@
         .segment "MGTK_CODE"
 
 
-        .import FlushEventsImpl
-        .import HideCursorImpl
-        .import PaintRectImpl
-        .import ShowCursorImpl
-        .import StartDeskTopImpl__reset_desktop
+        MGTK_IMPORT FlushEventsImpl
+        MGTK_IMPORT HideCursorImpl
+        MGTK_IMPORT PaintRectImpl
+        MGTK_IMPORT ShowCursorImpl
+        MGTK_IMPORT StartDeskTopImpl__reset_desktop
 
-        .import apply_active_port_to_port
-        .import apply_port_to_active_port
-        .import assign_and_prepare_port
-        .import checkerboard_pattern
-        .import clip_rect
-        .import do_measure_text
-        .import draw_icon
-        .import draw_or_erase_scrollbar
-        .import draw_text
-        .import eventbuf__kind
-        .import eventbuf__window_id
-        .import fill_and_frame_rect
-        .import fill_rect_params
-        .import finish_grow
-        .import force_tracking_change
-        .import get_and_return_event
-        .importzp get_and_return_event__event__mouse_pos
-        .import grew_flag
-        .import hide_cursor_save_params
-        .import kbd_mouse_init_tracking
-        .import kbd_mouse_state
-        .import kbd_win_drag_or_grow
-        .import movement_cancel
-        .import penloc_to_bounds
-        .import preserve_zp_flag
-        .import put_event
-        .import restore_params_active_port
-        .import save_params_and_stack
-        .import set_and_prepare_port
-        .import set_desktop_port
-        .import set_fill_mode
-        .import set_grew_flag
-        .import set_input
-        .import set_pos_params
-        .import show_cursor_and_restore
-        .import standard_port__penpattern
-        .import store_xa_at_y
-        .import test_rect_params
+        MGTK_IMPORT apply_active_port_to_port
+        MGTK_IMPORT apply_port_to_active_port
+        MGTK_IMPORT assign_and_prepare_port
+        MGTK_IMPORT checkerboard_pattern
+        MGTK_IMPORT clip_rect
+        MGTK_IMPORT do_measure_text
+        MGTK_IMPORT draw_icon
+        MGTK_IMPORT draw_or_erase_scrollbar
+        MGTK_IMPORT draw_text
+        MGTK_IMPORT eventbuf__kind
+        MGTK_IMPORT eventbuf__window_id
+        MGTK_IMPORT fill_and_frame_rect
+        MGTK_IMPORT fill_rect_params
+        MGTK_IMPORT finish_grow
+        MGTK_IMPORT force_tracking_change
+        MGTK_IMPORT get_and_return_event
+        MGTK_IMPORTZP get_and_return_event__event__mouse_pos
+        MGTK_IMPORT grew_flag
+        MGTK_IMPORT hide_cursor_save_params
+        MGTK_IMPORT kbd_mouse_init_tracking
+        MGTK_IMPORT kbd_mouse_state
+        MGTK_IMPORT kbd_win_drag_or_grow
+        MGTK_IMPORT movement_cancel
+        MGTK_IMPORT penloc_to_bounds
+        MGTK_IMPORT preserve_zp_flag
+        MGTK_IMPORT put_event
+        MGTK_IMPORT restore_params_active_port
+        MGTK_IMPORT save_params_and_stack
+        MGTK_IMPORT set_and_prepare_port
+        MGTK_IMPORT set_desktop_port
+        MGTK_IMPORT set_fill_mode
+        MGTK_IMPORT set_grew_flag
+        MGTK_IMPORT set_input
+        MGTK_IMPORT set_pos_params
+        MGTK_IMPORT show_cursor_and_restore
+        MGTK_IMPORT standard_port__penpattern
+        MGTK_IMPORT store_xa_at_y
+        MGTK_IMPORT test_rect_params
 
-        .importzp winrect
-        .importzp winrect__x1
-        .importzp winrect__y1
-        .importzp winrect__x2
-        .importzp winrect__y2
-
-        .import MGTK__SetPortBits
-        .import MGTK__InRect
-        .import MGTK__FrameRect
-        .import MGTK__PaintRect
-        .import MGTK__SetPattern
-        .import MGTK__MoveTo
+        MGTK_IMPORTZP winrect
+        MGTK_IMPORTZP winrect__x1
+        MGTK_IMPORTZP winrect__y1
+        MGTK_IMPORTZP winrect__x2
+        MGTK_IMPORTZP winrect__y2
 
 
 icon_offset_pos    := 0
@@ -336,11 +329,11 @@ nope:   exit_call MGTK::error_window_not_found
 
 
 frame_winrect:
-        MGTK_CALL MGTK__FrameRect, winrect
+        MGTK_CALL MGTK::FrameRect, winrect
         rts
 
 in_winrect:
-        MGTK_CALL MGTK__InRect, winrect
+        MGTK_CALL MGTK::InRect, winrect
         rts
 
         ;; Retrieve the rectangle of the current window and put it in winrect.
@@ -600,10 +593,10 @@ stripes_pattern_alt := *+1
         lda     winrect__y1
         and     #1
         beq     :+
-        MGTK_CALL MGTK__SetPattern, stripes_pattern
+        MGTK_CALL MGTK::SetPattern, stripes_pattern
         rts
 
-:       MGTK_CALL MGTK__SetPattern, stripes_pattern_alt
+:       MGTK_CALL MGTK::SetPattern, stripes_pattern_alt
         rts
 .endproc
 
@@ -715,7 +708,7 @@ has_goaway:
         sub16   winrect__x2, #3, right
 
         jsr     PaintRectImpl  ; Draw title bar stripes to right of title
-        MGTK_CALL MGTK__SetPattern, standard_port__penpattern
+        MGTK_CALL MGTK::SetPattern, standard_port__penpattern
 
 .else
 has_goaway := 0
@@ -954,7 +947,7 @@ window_id:  .byte   0
 
         jsr     save_params_and_stack
 
-        MGTK_CALL MGTK__InRect, test_rect_params ; check if in menubar
+        MGTK_CALL MGTK::InRect, test_rect_params ; check if in menubar
         beq     not_menubar
 
         lda     #MGTK::area_menubar
@@ -1170,13 +1163,13 @@ update_port:
         jsr     set_desktop_port
         lda     matched_target
         bne     :+
-        MGTK_CALL MGTK__SetPortBits, set_port_params
+        MGTK_CALL MGTK::SetPortBits, set_port_params
 
 :       jsr     draw_window
         jsr     set_desktop_port
         lda     matched_target
         bne     :+
-        MGTK_CALL MGTK__SetPortBits, set_port_params
+        MGTK_CALL MGTK::SetPortBits, set_port_params
 
 :       jsr     get_window
         copy16  active_port, previous_port
@@ -1378,14 +1371,14 @@ toggle: sta     in_close_box
         jsr     set_fill_mode
 
         jsr     HideCursorImpl
-        MGTK_CALL MGTK__PaintRect, winrect
+        MGTK_CALL MGTK::PaintRect, winrect
         jsr     ShowCursorImpl
 
 loop:   jsr     get_and_return_event
         cmp     #MGTK::event_kind_button_up
         beq     :+
 
-        MGTK_CALL MGTK__MoveTo, set_pos_params
+        MGTK_CALL MGTK::MoveTo, set_pos_params
         jsr     in_winrect
         eor     in_close_box
         bpl     loop
@@ -1474,7 +1467,7 @@ drag_or_grow:
 
         lda     #MGTK::penXOR
         jsr     set_fill_mode
-        MGTK_CALL MGTK__SetPattern, checkerboard_pattern
+        MGTK_CALL MGTK::SetPattern, checkerboard_pattern
 
 loop:   jsr     get_window
         jsr     update_win_for_drag
@@ -1724,13 +1717,13 @@ matched_target:
         sta     target_window_id
         lda     #0
         sta     matched_target
-        MGTK_CALL MGTK__SetPortBits, set_port_params
+        MGTK_CALL MGTK::SetPortBits, set_port_params
 
         lda     #MGTK::pencopy
         jsr     set_fill_mode
 
-        MGTK_CALL MGTK__SetPattern, checkerboard_pattern
-        MGTK_CALL MGTK__PaintRect, set_port_maprect
+        MGTK_CALL MGTK::SetPattern, checkerboard_pattern
+        MGTK_CALL MGTK::PaintRect, set_port_maprect
 
         jsr     show_cursor_and_restore
         jsr     top_window

@@ -14,14 +14,14 @@
 
 
 
-        .import DRAW_LINE_ABS_IMPL_do_draw_line
-        .import load_poly
-        .import next_poly
-        .import ora_2_param_bytes
-        .importzp poly_oper
-        .import poly_oper_paint
-        .import poly_oper_test
-        .importzp vertices_count
+        MGTK_IMPORT DRAW_LINE_ABS_IMPL_do_draw_line
+        MGTK_IMPORT load_poly
+        MGTK_IMPORT next_poly
+        MGTK_IMPORT ora_2_param_bytes
+        MGTK_IMPORTZP poly_oper
+        MGTK_IMPORTZP poly_oper_paint
+        MGTK_IMPORTZP poly_oper_test
+        MGTK_IMPORTZP vertices_count
 
 
 ;;; ============================================================

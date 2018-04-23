@@ -8,36 +8,44 @@
         .include "../macros.inc"
 
         .include "mgtk-zp.inc"
+        .include "mgtk-macros.inc"
 
         .segment "MGTK_CODE"
 
 
-        .import   shift_1_aux,shift_2_aux,shift_3_aux
-        .import   shift_4_aux,shift_5_aux,shift_6_aux
-        .import   shift_1_main,shift_2_main,shift_3_main
-        .import   shift_4_main,shift_5_main,shift_6_main
-        .import   divmod7
+        MGTK_IMPORT   shift_1_aux
+        MGTK_IMPORT   shift_2_aux
+        MGTK_IMPORT   shift_3_aux
+        MGTK_IMPORT   shift_4_aux
+        MGTK_IMPORT   shift_5_aux
+        MGTK_IMPORT   shift_6_aux
+        MGTK_IMPORT   shift_1_main
+        MGTK_IMPORT   shift_2_main
+        MGTK_IMPORT   shift_3_main
+        MGTK_IMPORT   shift_4_main
+        MGTK_IMPORT   shift_5_main
+        MGTK_IMPORT   shift_6_main
+        MGTK_IMPORT   divmod7
 
-        .import   dhgr_shift_bits
-        .import   dhgr_shift_bits__offset1_addr
-        .import   dhgr_shift_bits__offset2_addr
-        .import   dhgr_shift_bits__shift_aux_addr
-        .import   dhgr_shift_bits__shift_main_addr
-        .import   dhgr_shift_bits__shift_bits_jmp_addr
+        MGTK_IMPORT   dhgr_shift_bits
+        MGTK_IMPORT   dhgr_shift_bits__offset1_addr
+        MGTK_IMPORT   dhgr_shift_bits__offset2_addr
+        MGTK_IMPORT   dhgr_shift_bits__shift_aux_addr
+        MGTK_IMPORT   dhgr_shift_bits__shift_main_addr
 
-        .import   dhgr_shift_line__offset1_addr
-        .import   dhgr_shift_line__offset2_addr
-        .import   shift_line_jmp
-        .import   dhgr_get_srcbits__shift_bits_jmp_addr
-        .import   dhgr_get_srcbits__offset1_addr
-        .import   dhgr_get_srcbits__offset2_addr
+        MGTK_IMPORT   dhgr_shift_line__offset1_addr
+        MGTK_IMPORT   dhgr_shift_line__offset2_addr
+        MGTK_IMPORT   shift_line_jmp
+        MGTK_IMPORT   dhgr_get_srcbits__shift_bits_jmp_addr
+        MGTK_IMPORT   dhgr_get_srcbits__offset1_addr
+        MGTK_IMPORT   dhgr_get_srcbits__offset2_addr
 
-        .import   set_up_fill_mode
-        .import   clip_rect
-        .import   bitmap_buffer
-        .import   set_dest
-        .import   set_source
-        .import   bit_blit
+        MGTK_IMPORT   set_up_fill_mode
+        MGTK_IMPORT   clip_rect
+        MGTK_IMPORT   bitmap_buffer
+        MGTK_IMPORT   set_dest
+        MGTK_IMPORT   set_source
+        MGTK_IMPORT   bit_blit
 
 
 

@@ -41,21 +41,20 @@
         poly_yh_buffer  := $07BC
 
 
-        .import poly_maxima_xl_table
-        .import poly_maxima_yh_table
-        .import poly_maxima_x_frach
-        .import poly_maxima_x_fracl
-        .import poly_maxima_xl_table
-        .import poly_maxima_xh_table
+        MGTK_IMPORT poly_maxima_xl_table
+        MGTK_IMPORT poly_maxima_yh_table
+        MGTK_IMPORT poly_maxima_x_frach
+        MGTK_IMPORT poly_maxima_x_fracl
+        MGTK_IMPORT poly_maxima_xh_table
 
-        .import fixed_div2
-        .importzp fixed_div_quotient
-        .importzp fixed_div_dividend
-        .importzp fixed_div_divisor
+        MGTK_IMPORT fixed_div2
+        MGTK_IMPORTZP fixed_div_quotient
+        MGTK_IMPORTZP fixed_div_dividend
+        MGTK_IMPORTZP fixed_div_divisor
 
-        .import PaintRectImpl__do_paint
-        .import InRectImpl
-        .import clip_rect
+        MGTK_IMPORT PaintRectImpl__do_paint
+        MGTK_IMPORT InRectImpl
+        MGTK_IMPORT clip_rect
 
 
 .proc load_poly

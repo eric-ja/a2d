@@ -16,39 +16,41 @@
         .segment "MGTK_CODE"
 
 
-        .import FlushEventsImpl
-        .import HideCursorImpl
-        .import ShowCursorImpl
-        .import InitGrafImpl
+        MGTK_IMPORT FlushEventsImpl
+        MGTK_IMPORT HideCursorImpl
+        MGTK_IMPORT ShowCursorImpl
+        MGTK_IMPORT InitGrafImpl
 
-        .import call_mouse
-        .import current_window
-        .import interrupt_handler
-        .import mouse_hook
-        .import mouse_state
-        .import prepare_port
-        .import preserve_zp_flag
-        .importzp screen_height
-        .import screen_width
-        .import stack_ptr_stash
-        .import standard_port
-        .import standard_port__textback
-        .import standard_port__textfont
-        .import store_xa_at_y
-        .import set_pointer_cursor
-        .import find_mouse
-        .import mouse_scale_x, mouse_scale_y
-        .import menu_item_y_table, menu_item_y_table_end
-        .import winframe_top
-        .import set_port_top
-        .import fill_rect_params4_top
-        .import test_rect_params2_top
-        .import test_rect_bottom
-        .import wintitle_height
-        .import fill_rect_params2_height
-        .import goaway_height
-        .import sysfont_height
-        .import savebehind_buffer
+        MGTK_IMPORT call_mouse
+        MGTK_IMPORT current_window
+        MGTK_IMPORT interrupt_handler
+        MGTK_IMPORT mouse_hook
+        MGTK_IMPORT mouse_state
+        MGTK_IMPORT prepare_port
+        MGTK_IMPORT preserve_zp_flag
+        MGTK_IMPORTZP screen_height
+        MGTK_IMPORT screen_width
+        MGTK_IMPORT stack_ptr_stash
+        MGTK_IMPORT standard_port
+        MGTK_IMPORT standard_port__textback
+        MGTK_IMPORT standard_port__textfont
+        MGTK_IMPORT store_xa_at_y
+        MGTK_IMPORT set_pointer_cursor
+        MGTK_IMPORT find_mouse
+        MGTK_IMPORT mouse_scale_x
+        MGTK_IMPORT mouse_scale_y
+        MGTK_IMPORT menu_item_y_table
+        MGTK_IMPORT menu_item_y_table_end
+        MGTK_IMPORT winframe_top
+        MGTK_IMPORT set_port_top
+        MGTK_IMPORT fill_rect_params4_top
+        MGTK_IMPORT test_rect_params2_top
+        MGTK_IMPORT test_rect_bottom
+        MGTK_IMPORT wintitle_height
+        MGTK_IMPORT fill_rect_params2_height
+        MGTK_IMPORT goaway_height
+        MGTK_IMPORT sysfont_height
+        MGTK_IMPORT savebehind_buffer
 
         .import MGTK__SetPortBits
         .import MGTK__PaintRect
@@ -69,7 +71,7 @@ use_interrupts:
 always_handle_irq:
         .byte   $00
 .else
-always_handle_irq := $0000
+always_handle_irq := $ffff
 .endif
 
 savebehind_size:
@@ -530,20 +532,18 @@ mouse_state_addr:
 .endproc
 
 
-        .import ScaleMouseImpl
-        .importzp ScaleMouseImpl__params
-        .import KeyboardMouseImpl
-        .importzp KeyboardMouseImpl__params
+        MGTK_IMPORT ScaleMouseImpl
+        MGTK_IMPORTZP ScaleMouseImpl__params
+        MGTK_IMPORT KeyboardMouseImpl
+        MGTK_IMPORTZP KeyboardMouseImpl__params
 
 .if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
-        .import GetIntHandlerImpl
+        MGTK_IMPORT GetIntHandlerImpl
 .endif
 
-        .import SetCursorImpl
-        .import ShowCursorImpl
-        .import HideCursorImpl
-        .import ObscureCursorImpl
-        .import GetCursorAddrImpl
+        MGTK_IMPORT SetCursorImpl
+        MGTK_IMPORT ObscureCursorImpl
+        MGTK_IMPORT GetCursorAddrImpl
 
 
         ;; ----------------------------------------

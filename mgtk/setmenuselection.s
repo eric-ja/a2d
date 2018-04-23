@@ -13,8 +13,8 @@
         .segment "MGTK_CODE"
 
 
-        .import sel_menu_index
-        .import sel_menu_item_index
+        MGTK_IMPORT sel_menu_index
+        MGTK_IMPORT sel_menu_item_index
 
 
 .if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
@@ -45,8 +45,8 @@
 .endif
 
 
-        .import BitBltImpl
-        .importzp BitBltImpl__params
+        MGTK_IMPORT BitBltImpl
+        MGTK_IMPORTZP BitBltImpl__params
 
         ;; Extra API
 
