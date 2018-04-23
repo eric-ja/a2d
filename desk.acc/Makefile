@@ -43,7 +43,7 @@ $(OUTDIR)/%.built: $(OUTDIR)/%.o asm.cfg $(MGTK_LIB)
 # Desk Accessories .$F1
 $(OUTDIR)/%.$$F1: $(OUTDIR)/%.o $(MGTK_LIB)
 	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_LIB)
-	xattr -w prodos.AuxType '@' '$@'
+	xattr -wx prodos.AuxType '40 06' '$@'
 
 # System Files .SYS
 $(OUTDIR)/%.SYS: $(OUTDIR)/%.o
