@@ -314,6 +314,7 @@ set_x:  stax    current_penloc_x
         rts
 .endproc
 
+
 .proc get_and_return_event
         PARAM_BLOCK event, $82
 kind:      .byte   0
@@ -322,7 +323,9 @@ mouse_x:   .word  0
 mouse_y:   .word  0
         END_PARAM_BLOCK
 
+.if ::Variant <> 'P'
         MGTK_CALL MGTK::GetEvent, event
+.endif
         return  event
 .endproc
 
@@ -1347,6 +1350,8 @@ mark_char: .byte   0
 .endproc
 
 
+.if ::Variant <> 'P'
+
         ;; Menu Manager API
 
         MGTK_DECL_API  InitMenu,    $2F, InitMenuImpl, 0, ::params, 4
@@ -1359,10 +1364,11 @@ mark_char: .byte   0
         MGTK_DECL_API  CheckItem,   $36, CheckItemImpl, 0, ::params
         MGTK_DECL_API  SetMark,     $37, SetMarkImpl, 0, ::params
 
+.endif
+
 
         MGTK_DECL_ERROR  error_menu_not_found                 ; $9A
         MGTK_DECL_ERROR  error_menu_item_not_found            ; $9B
         MGTK_DECL_ERROR  error_insufficient_savebehind_area   ; $9C
-
 
         .include "menus-exp.inc"

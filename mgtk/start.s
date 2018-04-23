@@ -22,7 +22,9 @@
         MGTK_IMPORT InitGrafImpl
 
         MGTK_IMPORT call_mouse
+.if ::Variant <> 'M'
         MGTK_IMPORT current_window
+.endif
         MGTK_IMPORT interrupt_handler
         MGTK_IMPORT mouse_hook
         MGTK_IMPORT mouse_state
@@ -41,14 +43,20 @@
         MGTK_IMPORT mouse_scale_y
         MGTK_IMPORT menu_item_y_table
         MGTK_IMPORT menu_item_y_table_end
+.if ::Variant <> 'M'
         MGTK_IMPORT winframe_top
         MGTK_IMPORT set_port_top
+.endif
         MGTK_IMPORT fill_rect_params4_top
         MGTK_IMPORT test_rect_params2_top
         MGTK_IMPORT test_rect_bottom
+.if ::Variant <> 'M'
         MGTK_IMPORT wintitle_height
+.endif
         MGTK_IMPORT fill_rect_params2_height
+.if ::Variant <> 'M'
         MGTK_IMPORT goaway_height
+.endif
         MGTK_IMPORT sysfont_height
         MGTK_IMPORT savebehind_buffer
 
@@ -130,22 +138,28 @@ savesize:   .res 2
         tax
         stx     sysfont_height
         dex
+.if ::Variant <> 'M'
         stx     goaway_height                 ; goaway height = font height - 1
+.endif
         inx
         inx
         inx
         stx     fill_rect_params2_height      ; menu bar height = font height + 2
 
         inx
+.if ::Variant <> 'M'
         stx     wintitle_height               ; win title height = font height + 3
+.endif
 
         stx     test_rect_bottom
         stx     test_rect_params2_top
         stx     fill_rect_params4_top
 
         inx                                   ; font height + 4: top of desktop area
+.if ::Variant <> 'M'
         stx     set_port_top
         stx     winframe_top
+.endif
         stx     desktop_port_y
         stx     fill_rect_top
 
@@ -241,8 +255,10 @@ no_irq: lda     VERSION
         jsr     set_pointer_cursor
         jsr     FlushEventsImpl
 
+.if ::Variant <> 'M'
         lda     #0
         sta     current_window+1
+.endif
 
 reset_desktop:
         jsr     save_params_and_stack
@@ -546,6 +562,8 @@ mouse_state_addr:
         MGTK_IMPORT GetCursorAddrImpl
 
 
+.if ::Variant <> 'P'
+
         ;; ----------------------------------------
         ;; MouseGraphics ToolKit Calls
 
@@ -566,6 +584,8 @@ mouse_state_addr:
         MGTK_DECL_API  HideCursor,     $26, HideCursorImpl, 0
         MGTK_DECL_API  ObscureCursor,  $27, ObscureCursorImpl, 0
         MGTK_DECL_API  GetCursorAddr,  $28, GetCursorAddrImpl, 0
+
+.endif
 
 
         MGTK_DECL_ERROR  error_invalid_op_sys                ; $90

@@ -1839,6 +1839,7 @@ windowy:        .word   0       ; out
         rts
 .endproc
 
+.if ::Variant <> 'P' && ::Variant <> 'M'
 
         ;; Window Manager API
 
@@ -1859,6 +1860,8 @@ windowy:        .word   0       ; out
         MGTK_DECL_API  ScreenToWindow, $46, ScreenToWindowImpl, 0, ::params, 5
         MGTK_DECL_API  WindowToScreen, $47, WindowToScreenImpl, 0, ::params, 5
 
+.endif
+
 
         MGTK_DECL_ERROR  error_window_already_exists    ; $9D
         MGTK_DECL_ERROR  error_window_id_required       ; $9E
@@ -1867,7 +1870,6 @@ windowy:        .word   0       ; out
         MGTK_DECL_ERROR  error_window_not_draggable     ; $A1
         MGTK_DECL_ERROR  error_window_not_resizable     ; $A2
         MGTK_DECL_ERROR  error_window_obscured          ; $A3
-
 
         .include "windows-exp.inc"
 

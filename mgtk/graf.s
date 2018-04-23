@@ -220,9 +220,16 @@ rts3:   rts
 
         MGTK_DECL_API  PaintBits,     $14, PaintBitsImpl,   0, PaintBitsImpl__params, 16
 
+.if ::Variant = 'P'
+        ; Graphics Primitives sets the param count for these calls to $ff?
+        MGTK_DECL_API  PaintPoly,     $15, PaintPolyImpl,   1, 0, $100
+        MGTK_DECL_API  FramePoly,     $16, FramePolyImpl,   1, 0, $100
+        MGTK_DECL_API  InPoly,        $17, InPolyImpl,      0, 0, $100
+.else
         MGTK_DECL_API  PaintPoly,     $15, PaintPolyImpl,   1
         MGTK_DECL_API  FramePoly,     $16, FramePolyImpl,   1
         MGTK_DECL_API  InPoly,        $17, InPolyImpl,      0
+.endif
 
         ;; Text
         MGTK_DECL_API  TextWidth,     $18, TextWidthImpl,   0, TextWidthImpl__params, 3

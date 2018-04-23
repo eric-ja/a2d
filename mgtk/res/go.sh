@@ -13,13 +13,13 @@ function cecho {
 }
 
 function do_make {
-    make "$1" >/dev/null \
+    make "$1" "$2" >/dev/null \
         && (cecho green "make $1 good") \
         || (tput blink ; cecho red "MAKE $1 BAD" ; return 1)
 }
 
 function verify {
-    do_make "VERSION=$3";
+    do_make "VERSION=$3" "out-$3/$2";
     diff "orig/$1" "out-$3/$2" \
         && (cecho green "diff $2 $3 $1 good" ) \
         || (
@@ -72,9 +72,11 @@ zpsave.s
 
 # Verify original and output match
 echo "Verifying diffs:"
-verify DESKTOP2_mgtk mgtk 1.0.0f1
-verify MBP_tk_abs    mgtk 1.0.0b10
-verify FM_tk_abs     mgtk 1.0.0b5
+verify DESKTOP2_mgtk     mgtk 1.0.0f1-all
+verify MBP_tk_abs        mgtk 1.0.0b10-all
+verify FM_tk_abs         mgtk 1.0.0b5-all
+verify KYANADV_prim_abs  mgtk 1.0.0b5-prim
+verify UNIV2_mgtk        mgtk.pascal 1.0.0b5-menu
 
 
 echo "Style check:"

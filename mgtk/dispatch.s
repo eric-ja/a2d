@@ -17,13 +17,15 @@
 ;;; ============================================================
 ;;; Call Dispatcher
 
-        MGTK_IMPORT desktop_initialized_flag
         MGTK_IMPORT active_saved
         MGTK_IMPORT zp_saved
         MGTK_IMPORT stack_ptr_stash
         MGTK_IMPORT preserve_zp_flag
+.if ::Variant <> 'P'
+        MGTK_IMPORT desktop_initialized_flag
         MGTK_IMPORT HideCursorImpl
         MGTK_IMPORT ShowCursorImpl
+.endif
 
 
         .segment "MGTK_DISPATCH"
@@ -71,6 +73,9 @@ adjust_stack:                   ; Adjust stack to account for params
         ldy     #1              ; Command index
         lda     (params_addr),y
         asl     a
+.if ::Variant = 'P'
+        asl     a
+.endif
         tax
         copy16  jump_table,x, jump_addr
 
@@ -88,6 +93,7 @@ adjust_stack:                   ; Adjust stack to account for params
         ;; * second byte's high bit is "hide cursor" flag
         ;; * rest of second byte is # bytes to copy
 
+.if ::Variant <> 'P'
         ldy     param_lengths+1,x ; Check param length...
         bpl     done_hiding
 
@@ -111,12 +117,17 @@ adjust_stack:                   ; Adjust stack to account for params
         tay
         pla
         tax
+.endif
 
 done_hiding:
         lda     param_lengths,x ; ZP offset for params
         beq     jump            ; nothing to copy
         sta     store+1
+.if ::Variant <> 'P'
         dey
+.else
+        ldy     param_lengths+1,x ; Check param length...
+.endif
 :       lda     (params_addr),y
 store:  sta     $FF,y           ; self modified
         dey
@@ -127,13 +138,18 @@ jump:   jsr     $FFFF           ; the actual call
 
         ;; Exposed for routines to call directly
 cleanup:
+
+.if ::Variant <> 'P'
         bit     desktop_initialized_flag
         bpl     :+
         jsr     show_cursor
+:
+.endif
 
-:       bit     preserve_zp_flag
+        bit     preserve_zp_flag
         bpl     exit_with_0
         jsr     apply_port_to_active_port
+
         ldx     #$0B
 :       lda     active_port,x
         sta     active_saved,x
@@ -185,6 +201,8 @@ rts2:   rts
         rts
 .endproc
 
+.if ::Variant <> 'P'
+
 ;;; ============================================================
 ;;; Drawing calls show/hide cursor before/after
 ;;; A recursion count is kept to allow rentrancy.
@@ -204,6 +222,12 @@ hide_cursor_count:
         jmp     ShowCursorImpl
 .endproc
 
+.else
+hide_cursor_count := 0
+hide_cursor := 0
+show_cursor := 0
+.endif
+
 ;;; ============================================================
 ;;; Jump table for MGTK entry point calls
 
@@ -216,8 +240,12 @@ hide_cursor_count:
         .import __MGTK_JUMPTABLE_RUN__
 jump_table := __MGTK_JUMPTABLE_RUN__
 
+.if ::Variant <> 'P'
         .import __MGTK_PARAMTABLE_RUN__
 param_lengths := __MGTK_PARAMTABLE_RUN__
+.else
+param_lengths := jump_table + 2
+.endif
 
 
         MGTK_DECL_API  NoOp, $00, jt_rts, 0

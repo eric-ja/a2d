@@ -1,7 +1,7 @@
 
-VERSION ?= 1.0.0f1
+VERSION ?= 1.0.0f1-all
 
-CC65 = /distfiles/cc65-master/bin/
+CC65 = ~/dev/cc65/bin
 CAFLAGS = --target apple2enh --list-bytes 0 --relax-checks
 CCFLAGS = --config asm.cfg
 
@@ -37,13 +37,18 @@ OBJS = out-%/dispatch.o \
        out-%/setmenuselection.o \
        out-%/mouse.o \
        out-%/zp.o
+
+PASCAL_OBJS = out-%/pascaldriver.o
   
 
 all: out-$(VERSION)/mgtk out-$(VERSION)/mgtk.lib
 .SECONDARY:
 
-out-%/mgtk: $(OBJS)
-	$(CC65)/ld65 --config asmo65.cfg -m $@.map -o $@ $^
+out-%/mgtk: out-%/mgtk.lib $(OBJS)
+	$(CC65)/ld65 --config asmo65.cfg -m $@.map -o $@ $(word 2, $^) $<
+
+out-%/mgtk.pascal: out-%/mgtk.lib $(PASCAL_OBJS) $(OBJS)
+	$(CC65)/ld65 --config asm-pascal.cfg -m $@.map -o $@ $(word 2, $^) $<
 
 out-%/mgtk.lib: $(OBJS)
 	-rm $@

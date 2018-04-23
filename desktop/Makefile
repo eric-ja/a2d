@@ -13,7 +13,7 @@ SEGMENTS = loader mgtk desktop invoker \
 
 TARGETS = $(patsubst %,$(OUTDIR)/%.built,$(SEGMENTS)) out/sys.SYS
 
-MGTK_VERSION = 1.0.0f1
+MGTK_VERSION = 1.0.0f1-all
 MGTK_DEFS = $(shell ../mgtk/res/parseversion.pl $(MGTK_VERSION))
 MGTK_LIB = ../mgtk/out-$(MGTK_VERSION)/mgtk.lib
 
@@ -50,9 +50,9 @@ $(OUTDIR)/%.built: $(OUTDIR)/%.o $(MGTK_LIB) asm.cfg
 # Desk Accessories .$F1
 $(OUTDIR)/%.$$F1: $(OUTDIR)/%.o
 	$(CC65)/ld65 $(CCFLAGS_MGTK) -o '$@' $<
-	xattr -w prodos.AuxType '@' '$@'
+	xattr -wx prodos.AuxType '@' '$@'
 
 # System Files .SYS
 $(OUTDIR)/%.SYS: $(OUTDIR)/%.o
 	$(CC65)/ld65 $(CCFLAGS) -o '$@' $<
-	xattr -w prodos.AuxType '00 20' $@
+	xattr -wx prodos.AuxType '00 20' $@

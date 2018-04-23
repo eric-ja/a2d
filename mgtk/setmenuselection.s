@@ -50,7 +50,9 @@
 
         ;; Extra API
 
+.if ::Variant <> 'P'
         MGTK_DECL_API  BitBlt,           $4D, BitBltImpl, 0, BitBltImpl__params, 16
+.endif
 
 .if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
         MGTK_DECL_API  SetMenuSelection, $4E, SetMenuSelectionImpl, 0, ::params, 2

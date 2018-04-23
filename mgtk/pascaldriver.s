@@ -60,7 +60,7 @@ func_table:
 unitclear_op:
         lda     init_flag
         beq     do_init
-        lda     a:slot_page
+        lda     slot_page
         bne     :+
 
         ldx     #9
@@ -74,41 +74,41 @@ unitclear_op:
         jmp     exit_0_jmp
 
 do_init:
-        inc     a:init_flag
+        inc     init_flag
         jsr     find_slot
         bcc     :+
         jmp     exit_x
 
 :       lda     $FFFE
-        sta     a:save_irq
+        sta     save_irq
         lda     $FFFF
-        sta     a:save_irq+1
+        sta     save_irq+1
 
-        lda     a:irq_entry_addr
+        lda     irq_entry_addr
         sta     $FFFE
-        lda     a:irq_entry_addr+1
+        lda     irq_entry_addr+1
         sta     $FFFF
 
-        ldx     a:slot_page
+        ldx     slot_page
         ldy     #0
 
-        stx     a:slot_setmouse+1
-        lda     a:slot_setmouse
+        stx     slot_setmouse+1
+        lda     slot_setmouse
         sta     ptr
-        lda     a:slot_setmouse+1
+        lda     slot_setmouse+1
         sta     ptr+1
 
         lda     (ptr),y
-        sta     a:slot_setmouse
+        sta     slot_setmouse
 
-        stx     a:slot_servemouse+1
-        lda     a:slot_servemouse
+        stx     slot_servemouse+1
+        lda     slot_servemouse
         sta     ptr
-        lda     a:slot_servemouse+1
+        lda     slot_servemouse+1
         sta     ptr+1
 
         lda     (ptr),y
-        sta     a:slot_servemouse
+        sta     slot_servemouse
 
 exit_0_jmp:
         jmp     exit_0
@@ -137,12 +137,12 @@ L00AD:  cmp     #$D6
         bne     scanloop
 
         lda     ptr+1
-        sta     a:slot_page
+        sta     slot_page
         asl     a
         asl     a
         asl     a
         asl     a
-        sta     a:slot_x16
+        sta     slot_x16
         clc
         rts
 
@@ -258,14 +258,14 @@ status_op:
         jmp     exit_x
 
 call_setmouse:
-        ldx     a:slot_page
+        ldx     slot_page
         stx     $07F8
-        ldy     a:slot_x16
+        ldy     slot_x16
         jmp     (slot_setmouse)
 
 call_servemouse:
-        ldx     a:slot_page
-        ldy     a:slot_x16
+        ldx     slot_page
+        ldy     slot_x16
         jmp     (slot_servemouse)
 
 irq_entry:

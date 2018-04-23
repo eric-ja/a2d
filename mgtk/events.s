@@ -326,9 +326,10 @@ rloop:  lda     int_stash_zp,x
 :       lda     int_stash_rd80store
         bpl     :+
         sta     SET80COL
+:
 .endif
 
-:       rts
+        rts
 .endproc
 
 
@@ -442,12 +443,16 @@ check_kbd_flag:  .byte   $80
 
         ;; Event Manager API
 
+.if ::Variant <> 'P'
+
         MGTK_DECL_API  CheckEvents,  $29, CheckEventsImpl, 0
         MGTK_DECL_API  GetEvent,     $2A, GetEventImpl, 0
         MGTK_DECL_API  FlushEvents,  $2B, FlushEventsImpl, 0
         MGTK_DECL_API  PeekEvent,    $2C, PeekEventImpl, 0
         MGTK_DECL_API  PostEvent,    $2D, PostEventImpl, 0, ::params
         MGTK_DECL_API  SetKeyEvent,  $2E, SetKeyEventImpl, 0, ::params, 1
+
+.endif
 
 
         MGTK_DECL_ERROR  error_invalid_event       ; $98

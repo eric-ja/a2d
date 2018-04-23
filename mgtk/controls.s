@@ -790,6 +790,8 @@ check_win:
 .endproc
 
 
+.if ::Variant <> 'P' && ::Variant <> 'M'
+
         ;; Control Manager API
 
         MGTK_DECL_API  FindControl,    $48, FindControlImpl, 0, current_penloc, 4
@@ -797,6 +799,8 @@ check_win:
         MGTK_DECL_API  TrackThumb,     $4A, TrackThumbImpl, 0, ::params, 5
         MGTK_DECL_API  UpdateThumb,    $4B, UpdateThumbImpl, 0, ::params
         MGTK_DECL_API  ActivateCtl,    $4C, ActivateCtlImpl, 0, ::params
+
+.endif
 
 
         MGTK_DECL_ERROR  error_control_not_found       ; $A4

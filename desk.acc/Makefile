@@ -12,7 +12,7 @@ DAS = calculator show.text.file date puzzle sort.directory \
 
 TARGETS = $(patsubst %,$(OUTDIR)/%.$$F1,$(DAS))
 
-MGTK_VERSION ?= 1.0.0f1
+MGTK_VERSION ?= 1.0.0f1-all
 MGTK_DEFS = $(shell ../mgtk/res/parseversion.pl $(MGTK_VERSION))
 MGTK_LIB = ../mgtk/out-$(MGTK_VERSION)/mgtk.lib
 

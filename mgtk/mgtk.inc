@@ -205,6 +205,8 @@ Version          := <MGTK__Version           ; $1C          ; Get toolkit versio
 ;;; .byte       (out) status
 ;;; .word       (out) number
 
+.if ::Variant <> 'P'
+
 ;;; ============================================================
 ;;; MouseGraphics ToolKit Calls
 ;;; ============================================================
@@ -400,6 +402,8 @@ SetMark          := <MGTK__SetMark           ; $37
 ;;; .byte       set_char        0=use checkmark, 1=use mark_char
 ;;; .byte       mark_char       char code to use for mark
 
+.if ::Variant <> 'M'
+
 ;;; --------------------------------------------------
 ;;; Window Manager Calls
 
@@ -540,6 +544,9 @@ ActivateCtl      := <MGTK__ActivateCtl       ; $4C          ; Activate/deactivat
 ;;; .byte       which_ctl       ctl_*_scroll_bar
 ;;; .byte       activate        0=deactivate, 1=activate
 
+.endif
+
+
 .import MGTK__BitBlt
 BitBlt           := <MGTK__BitBlt            ; $4D
 ;;; (input length: 16 bytes)
@@ -550,6 +557,8 @@ BitBlt           := <MGTK__BitBlt            ; $4D
 .import MGTK__SetMenuSelection
 SetMenuSelection  := <MGTK__SetMenuSelection   ; $4E
 ;; (input length: 2 bytes)
+
+.endif
 
 .endif
 

@@ -25,7 +25,15 @@
 
 
 .macro MGTK_PARAM_DEFN length, zp, cursor
-        .byte zp, ((length) | ((cursor) << 7))
+        .if ::Variant = 'P'
+            .if length = 0
+                .byte zp, 0
+            .else
+                .byte zp, ((length)-1)
+            .endif
+        .else
+            .byte zp, ((length) | ((cursor) << 7))
+        .endif
 .endmacro
 
 
@@ -52,7 +60,9 @@
                 .segment "MGTK_JUMPTABLE"
                 .addr impl
 
-                .segment "MGTK_PARAMTABLE"
+                .if ::Variant <> 'P'
+                    .segment "MGTK_PARAMTABLE"
+                .endif
                 MGTK_PARAM_DEFN  0, 0, cursor
             .popseg
             .exitmacro
@@ -78,7 +88,9 @@
             .segment "MGTK_JUMPTABLE"
             .addr impl
 
-            .segment "MGTK_PARAMTABLE"
+            .if ::Variant <> 'P'
+                .segment "MGTK_PARAMTABLE"
+            .endif
             MGTK_PARAM_DEFN  paramslen, params, cursor
         .popseg
 .endmacro

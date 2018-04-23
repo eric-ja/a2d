@@ -24,7 +24,9 @@
         MGTK_IMPORTZP curmenu__menu_id
         MGTK_IMPORTZP curmenu__x_min
         MGTK_IMPORTZP curmenuitem__options
+.if ::Variant <> 'M'
         MGTK_IMPORTZP current_winfo__options
+.endif
         MGTK_IMPORTZP find_menu_id
         MGTK_IMPORTZP find_options
         MGTK_IMPORTZP find_shortcut
@@ -38,17 +40,21 @@
         MGTK_IMPORT call_mouse
         MGTK_IMPORT cur_hilited_menu_item
         MGTK_IMPORT cur_open_menu
+.if ::Variant <> 'M'
         MGTK_IMPORT drag_curpos
         MGTK_IMPORT drag_initialpos
         MGTK_IMPORT drag_initialpos__xcoord
         MGTK_IMPORT drag_initialpos__ycoord
         MGTK_IMPORT drag_resize_flag
+.endif
         MGTK_IMPORT draw_menu
         MGTK_IMPORT find_menu
         MGTK_IMPORTZP find_mode_by_shortcut
         MGTK_IMPORT get_menu
         MGTK_IMPORT get_menu_item
+.if ::Variant <> 'M'
         MGTK_IMPORT get_winframerect
+.endif
         MGTK_IMPORT hide_menu
         MGTK_IMPORT hilite_menu_item
         MGTK_IMPORT input__modifiers
@@ -672,6 +678,8 @@ fail:   clc
 .endproc
 
 
+.if ::Variant <> 'M'
+
 .proc kbd_win_drag_or_grow
         php
         sei
@@ -786,6 +794,18 @@ xpositive:
         plp
         rts
 .endproc
+
+.else
+        kbd_win_drag_or_grow := 0
+        .scope kbd_win_drag_or_grow
+        is_y := 0
+        xpositive := 0
+        no_grow := 0
+        dragloop := 0
+        do_drag := 0
+        no_dialog := 0
+        .endscope
+.endif
 
 
 .proc kbd_mouse_add_to_y
@@ -950,7 +970,9 @@ not_left:
 
 
 .proc set_input
+.if ::Variant <> 'P'
         MGTK_CALL MGTK::PostEvent, set_input_params
+.endif
         rts
 .endproc
 
@@ -968,6 +990,8 @@ modifiers:
 force_tracking_change:
         .byte   0
 
+
+.if ::Variant <> 'M'
 
 .proc kbd_mouse_check_xmin
         lda     kbd_mouse_state
@@ -1115,6 +1139,47 @@ grts:   rts
         plp
         rts
 .endproc
+
+
+.else
+
+
+;;; Keyboard mouse stubs used when windows support is not compiled in.
+
+.proc kbd_mouse_check_xmin
+        ret_ok := 0
+        min_ok := 0
+
+        sec
+        rts
+.endproc
+
+        clc         ; unreferenced ???
+        rts
+
+.proc kbd_mouse_check_xmax
+        in_range := 0
+        clc_rts := 0
+        ge_100 := 0
+        is_max := 0
+
+        ;; Fall through
+.endproc
+
+        grew_flag := 0
+
+.proc set_grew_flag
+        sec
+grts:   rts
+.endproc
+
+.proc finish_grow
+        clc
+        rts
+.endproc
+
+.endif
+
 
 ;;; ============================================================
 ;;; ScaleMouse
