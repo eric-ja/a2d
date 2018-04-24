@@ -471,9 +471,9 @@ skip:   dec     arg
 .macro PARAM_BLOCK name, addr
         name := addr
         .scope  name
-        saved_org := *
         .pushseg
         .bss
+        .feature org_per_seg
         .org    addr
         start := *
 .endmacro
@@ -481,6 +481,5 @@ skip:   dec     arg
 .macro END_PARAM_BLOCK
         size := * - start
         .popseg
-        .org saved_org
         .endscope
 .endmacro

@@ -11,8 +11,8 @@ install:
     make -C /tmp/cadius
 
 script:
-  - cd $TRAVIS_BUILD_DIR/desktop &&
-    MAKE_FLAGS="CC65=/tmp/cc65/bin" res/go.sh
+  - cd $TRAVIS_BUILD_DIR &&
+    MAKE_FLAGS="CC65=/tmp/cc65/bin" make go
 
   - cd $TRAVIS_BUILD_DIR/desk.acc &&
     MAKE_FLAGS="CC65=/tmp/cc65/bin" res/go.sh &&
