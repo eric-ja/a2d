@@ -13,7 +13,7 @@ function cecho {
 }
 
 function do_make {
-    make "$1" "$2" >/dev/null \
+    make $MAKE_FLAGS "$1" "$2" >/dev/null \
         && (cecho green "make $1 good") \
         || (tput blink ; cecho red "MAKE $1 BAD" ; return 1)
 }
