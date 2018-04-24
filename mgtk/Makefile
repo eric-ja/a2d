@@ -46,12 +46,13 @@ all: out-$(VERSION)/mgtk out-$(VERSION)/mgtk.lib
 
 out-%/mgtk: out-%/mgtk.lib $(OBJS)
 	$(CC65)/ld65 --config asmo65.cfg -m $@.map -o $@ $(word 2, $^) $<
+	../res/listaddr.pl $@.map $(dir $@)/*.list
 
 out-%/mgtk.pascal: out-%/mgtk.lib $(PASCAL_OBJS) $(OBJS)
 	$(CC65)/ld65 --config asm-pascal.cfg -m $@.map -o $@ $(word 2, $^) $<
 
 out-%/mgtk.lib: $(OBJS)
-	-rm $@
+	-rm -f $@
 	$(CC65)/ar65 a $@ $^
 
 $(OUTDIR):
