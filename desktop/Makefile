@@ -31,7 +31,6 @@ clean:
 	rm -f $(OUTDIR)/*.o
 	rm -f $(OUTDIR)/*.list
 	rm -f $(OUTDIR)/*.built
-	rm -f $(OUTDIR)/*.\$$F1
 	rm -f $(OUTDIR)/*.sys
 
 $(OUTDIR)/ovl34567.o: ovl34567.s $(HEADERS) ovl3.s ovl4.s ovl5.s ovl6.s ovl7.s

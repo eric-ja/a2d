@@ -7,10 +7,9 @@ OUTDIR = out
 
 HEADERS = $(wildcard ../*.inc) $(wildcard ../inc/*.inc) $(wildcard *.inc)
 
-DAS = calculator show.text.file date puzzle sort.directory \
-	show.image.file this.apple eyes
+DAS = $(shell cat TARGETS)
 
-TARGETS = $(patsubst %,$(OUTDIR)/%.$$F1,$(DAS))
+TARGETS = $(patsubst %,$(OUTDIR)/%.built,$(DAS))
 
 MGTK_VERSION ?= 1.0.0f1-all
 MGTK_DEFS = $(shell ../mgtk/res/parseversion.pl $(MGTK_VERSION))
@@ -30,7 +29,6 @@ clean:
 	rm -f $(OUTDIR)/*.o
 	rm -f $(OUTDIR)/*.list
 	rm -f $(OUTDIR)/*.built
-	rm -f $(OUTDIR)/*.\$$F1
 	rm -f $(OUTDIR)/*.sys
 
 $(OUTDIR)/%.o: %.s $(HEADERS)
@@ -40,10 +38,9 @@ $(OUTDIR)/%.o: %.s $(HEADERS)
 $(OUTDIR)/%.built: $(OUTDIR)/%.o asm.cfg $(MGTK_LIB)
 	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_LIB)
 
-# Desk Accessories .$F1
-$(OUTDIR)/%.$$F1: $(OUTDIR)/%.o $(MGTK_LIB)
+# Desk Accessory Files
+$(OUTDIR)/%.built: $(OUTDIR)/%.o $(MGTK_LIB)
 	$(CC65)/ld65 $(CCFLAGS) -o '$@' $< $(MGTK_LIB)
-	xattr -wx prodos.AuxType '40 06' '$@'
 
 # System Files .SYS
 $(OUTDIR)/%.SYS: $(OUTDIR)/%.o
