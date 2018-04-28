@@ -51,6 +51,7 @@
         MGTK_IMPORTZP fixed_div_quotient
         MGTK_IMPORTZP fixed_div_dividend
         MGTK_IMPORTZP fixed_div_divisor
+        MGTK_IMPORTZP error_bad_object
 
         MGTK_IMPORT PaintRectImpl__do_paint
         MGTK_IMPORT InRectImpl
@@ -240,7 +241,7 @@ next:   jsr     next_poly
         jmp     fill_polys
 
 bad_poly:
-        exit_call MGTK::error_bad_object
+        exit_call error_bad_object
 .endproc
 
 

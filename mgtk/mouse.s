@@ -46,6 +46,8 @@
         MGTK_IMPORT drag_initialpos__xcoord
         MGTK_IMPORT drag_initialpos__ycoord
         MGTK_IMPORT drag_resize_flag
+        MGTK_IMPORTZP error_window_not_resizable
+        MGTK_IMPORTZP error_window_not_draggable
 .endif
         MGTK_IMPORT draw_menu
         MGTK_IMPORT find_menu
@@ -735,7 +737,7 @@ fail:   clc
 no_grow:
         lda     #0
         sta     kbd_mouse_state
-        lda     #MGTK::error_window_not_resizable
+        lda     #error_window_not_resizable
         plp
         jmp     MGTK__exit_with_a
 
@@ -746,7 +748,7 @@ do_drag:
 
         lda     #0
         sta     kbd_mouse_state
-        exit_call MGTK::error_window_not_draggable
+        exit_call error_window_not_draggable
 
 no_dialog:
         ldx     #0

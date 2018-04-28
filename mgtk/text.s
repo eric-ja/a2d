@@ -25,6 +25,7 @@
         MGTK_IMPORT clip_rect
         MGTK_IMPORT maybe_stash_low_zp
         MGTK_IMPORT maybe_unstash_low_zp
+        MGTK_IMPORTZP error_font_too_big
 
 
 ;;; ============================================================
@@ -84,7 +85,7 @@ loop:   sta     glyph_row_lo,y
         bne     loop
         rts
 
-end:    exit_call MGTK::error_font_too_big
+end:    exit_call error_font_too_big
 .endproc
 
 glyph_row_lo:

@@ -324,7 +324,7 @@ end:    rts
         jsr     window_by_id
         beq     nope
         rts
-nope:   exit_call MGTK::error_window_not_found
+nope:   exit_call MGTK__error_window_not_found
 .endproc
 
 
@@ -1045,12 +1045,12 @@ not_selected:
         ldy     #MGTK::winfo_offset_window_id
         lda     (window),y
         bne     :+
-        exit_call MGTK::error_window_id_required
+        exit_call MGTK__error_window_id_required
 
 :       sta     win_id
         jsr     window_by_id
         beq     :+
-        exit_call MGTK::error_window_already_exists
+        exit_call MGTK__error_window_already_exists
 
 :       copy16  params_addr, window
 
@@ -1188,7 +1188,7 @@ update_port:
 .endproc
 
 err_obscured:
-        exit_call MGTK::error_window_obscured
+        exit_call MGTK__error_window_obscured
 
 ;;; ============================================================
 ;;; EndUpdate

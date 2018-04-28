@@ -16,6 +16,7 @@
         .segment "MGTK_CODE"
 
 
+        MGTK_IMPORTZP error_empty_object
         MGTK_IMPORT exit_with_a
         MGTK_IMPORT do_fill
         MGTK_IMPORT set_dest
@@ -277,7 +278,7 @@ in_top: ldy     #0
         rts
 
 bad_rect:
-        exit_call MGTK::error_empty_object
+        exit_call error_empty_object
 .endproc
 
         .include "rect-exp.inc"

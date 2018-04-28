@@ -28,6 +28,7 @@
         MGTK_IMPORT store_xa_at_params
         MGTK_IMPORT use_interrupts
         MGTK_IMPORT exit_with_a
+        MGTK_IMPORTZP error_irq_in_use
 
 
 ;;; ============================================================
@@ -130,11 +131,11 @@ event_ok:
         rts
 
 bad_event:
-        lda     #MGTK::error_invalid_event
+        lda     #MGTK__error_invalid_event
         bmi     error_return
 
 no_room:
-        lda     #MGTK::error_event_queue_full
+        lda     #MGTK__error_event_queue_full
 error_return:
         plp
         jmp     exit_with_a
@@ -182,7 +183,7 @@ modifiers  := * + 3
 .proc CheckEventsImpl
         bit     use_interrupts
         bpl     irq_entry
-        exit_call MGTK::error_irq_in_use
+        exit_call error_irq_in_use
 
 irq_entry:
         sec                     ; called from interrupt handler

@@ -477,7 +477,7 @@ filler: ldx     menu_item_index
         lda     savebehind_size+1
         sbc     savebehind_usage+1
         bpl     :+
-        exit_call MGTK::error_insufficient_savebehind_area
+        exit_call MGTK__error_insufficient_savebehind_area
 
 :       rts
 .endproc
@@ -509,7 +509,7 @@ filler: ldx     menu_item_index
 .proc find_menu_by_id_or_fail
         jsr     find_menu_by_id
         bne     :+
-        exit_call MGTK::error_menu_not_found
+        exit_call MGTK__error_menu_not_found
 :       rts
 .endproc
 
@@ -726,7 +726,7 @@ rrts:   rts
 .proc find_menu_item_or_fail
         jsr     find_menu_and_menu_item
         bne     rrts
-        exit_call MGTK::error_menu_item_not_found
+        exit_call MGTK__error_menu_item_not_found
 .endproc
 
 

@@ -30,7 +30,6 @@
 
         .segment "MGTK_DISPATCH"
 
-
 .proc dispatch
 
 .if ::VStatus > 'B' || (::VStatus = 'B' && ::VRelease >= 10)
@@ -252,3 +251,4 @@ param_lengths := jump_table + 2
 
 
         .include "dispatch-exp.inc"
+

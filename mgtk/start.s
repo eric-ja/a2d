@@ -197,7 +197,7 @@ savesize:   .res 2
         bpl     found_mouse
         cpx     #0
         bne     :+
-        exit_call MGTK::error_no_mouse
+        exit_call MGTK__error_no_mouse
 
 :       lda     slot_num
         and     #$7F
@@ -300,7 +300,7 @@ irq_on:
 irts:   rts
 
 irq_err:
-        exit_call MGTK::error_invalid_irq_setting
+        exit_call MGTK__error_invalid_irq_setting
 .endproc
 
 .proc set_op_sys
@@ -309,7 +309,7 @@ irq_err:
         cmp     #1
         beq     is_pascal
 
-        exit_call MGTK::error_invalid_op_sys
+        exit_call MGTK__error_invalid_op_sys
 
 is_prodos:
         lda     #$80
@@ -386,7 +386,7 @@ clear_after_events_hook:
         rts
 
 invalid_hook:
-        exit_call MGTK::error_invalid_hook
+        exit_call MGTK__error_invalid_hook
 .endproc
 
 
@@ -541,7 +541,7 @@ checkerboard_pattern:
         ldy     #2
         jmp     store_xa_at_y
 
-fail:   exit_call MGTK::error_desktop_already_initialized
+fail:   exit_call MGTK__error_desktop_already_initialized
 
 mouse_state_addr:
         .addr   mouse_state

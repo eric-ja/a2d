@@ -9,6 +9,21 @@ MLI     := MGTK__dispatch
         ;; MLI-style call (jsr MLI ; .byte call ; .addr params)
         ;; Call from AUX (RAMRDON/RAMWRTON)
 
+
+        ;; Import the name with an MGTK__ prefix into the current namespace.
+.macro MGTK_IMPORT name
+        .import .ident( .sprintf("MGTK__%s", .string(name)) )
+        name := .ident( .sprintf("MGTK__%s", .string(name)) )
+.endmacro
+
+        ;; Import the zero-page name with an MGTK__ prefix into the current
+        ;; namespace.
+.macro MGTK_IMPORTZP name
+        .importzp .ident( .sprintf("MGTK__%s", .string(name)) )
+        name := .ident( .sprintf("MGTK__%s", .string(name)) )
+.endmacro
+
+
 ;;; ============================================================
 ;;; Graphics Primitives
 ;;; ============================================================
@@ -727,30 +742,34 @@ font_offset_charwidth           := 3
 
 
 ;;; Errors
+.if !.defined(in_mgtk)
 
-.importzp error_empty_object                  ; $81
-.importzp error_bad_object                    ; $82
-.importzp error_font_too_big                  ; $83
+        MGTK_IMPORTZP error_empty_object                  ; $81
+        MGTK_IMPORTZP error_bad_object                    ; $82
+        MGTK_IMPORTZP error_font_too_big                  ; $83
 
-.importzp error_invalid_op_sys                ; $90
-.importzp error_no_mouse                      ; $92
-.importzp error_invalid_irq_setting           ; $93
-.importzp error_invalid_hook                  ; $94
-.importzp error_desktop_already_initialized   ; $95
-.importzp error_irq_in_use                    ; $97
-.importzp error_invalid_event                 ; $98
-.importzp error_event_queue_full              ; $99
-.importzp error_menu_not_found                ; $9A
-.importzp error_menu_item_not_found           ; $9B
-.importzp error_insufficient_savebehind_area  ; $9C
-.importzp error_window_already_exists         ; $9D
-.importzp error_window_id_required            ; $9E
-.importzp error_window_not_found              ; $9F
-.importzp error_no_active_window              ; $A0
-.importzp error_window_not_draggable          ; $A1
-.importzp error_window_not_resizable          ; $A2
-.importzp error_window_obscured               ; $A3
-.importzp error_control_not_found             ; $A4
+.if ::Variant <> 'P'
+        MGTK_IMPORTZP error_invalid_op_sys                ; $90
+        MGTK_IMPORTZP error_no_mouse                      ; $92
+        MGTK_IMPORTZP error_invalid_irq_setting           ; $93
+        MGTK_IMPORTZP error_invalid_hook                  ; $94
+        MGTK_IMPORTZP error_desktop_already_initialized   ; $95
+        MGTK_IMPORTZP error_irq_in_use                    ; $97
+        MGTK_IMPORTZP error_invalid_event                 ; $98
+        MGTK_IMPORTZP error_event_queue_full              ; $99
+        MGTK_IMPORTZP error_menu_not_found                ; $9A
+        MGTK_IMPORTZP error_menu_item_not_found           ; $9B
+        MGTK_IMPORTZP error_insufficient_savebehind_area  ; $9C
+        MGTK_IMPORTZP error_window_already_exists         ; $9D
+        MGTK_IMPORTZP error_window_id_required            ; $9E
+        MGTK_IMPORTZP error_window_not_found              ; $9F
+        MGTK_IMPORTZP error_no_active_window              ; $A0
+        MGTK_IMPORTZP error_window_not_draggable          ; $A1
+        MGTK_IMPORTZP error_window_not_resizable          ; $A2
+        MGTK_IMPORTZP error_window_obscured               ; $A3
+        MGTK_IMPORTZP error_control_not_found             ; $A4
+.endif
+.endif
 
 
 .endscope ; MGTK

@@ -44,8 +44,8 @@ PASCAL_OBJS = out-%/pascaldriver.o
 all: out-$(VERSION)/mgtk out-$(VERSION)/mgtk.lib
 .SECONDARY:
 
-out-%/mgtk: out-%/mgtk.lib $(OBJS)
-	$(CC65)/ld65 --config asmo65.cfg -m $@.map -o $@ $(word 2, $^) $<
+out-%/mgtk: out-%/mgtk.lib $(OBJS) empty.o
+	$(CC65)/ld65 --config asm.cfg -m $@.map -o $@ --force-import MGTK__dispatch empty.o $<
 	../res/listaddr.pl $@.map $(dir $@)/*.list
 
 out-%/mgtk.pascal: out-%/mgtk.lib $(PASCAL_OBJS) $(OBJS)
@@ -55,12 +55,18 @@ out-%/mgtk.lib: $(OBJS)
 	-rm -f $@
 	$(CC65)/ar65 a $@ $^
 
+out-%/dump-exports: $(OBJS)
+	$(CC65)/od65 --dump-exports $^ | egrep "Name: +\".*\"" | cut -d\" -f2
+
 $(OUTDIR):
 	mkdir -p $@
+
+empty.o:
+	$(CC65)/ca65 -o $@ /dev/null
 
 %-exp.inc: %.s
 	../res/genexports.pl MGTK < $< > $@
 
 $(OBJPATTERN):  MGTK_VERSION_DEFS=$(shell ./res/parseversion.pl $(subst out-,,$(subst /,,$(dir $@))))
 $(OBJPATTERN): %.s %-exp.inc $(OUTDIR)
-	$(CC65)/ca65 $(CAFLAGS) $(MGTK_VERSION_DEFS) --listing $(basename $@).list -o $@ $<
+	$(CC65)/ca65 $(CAFLAGS) -Din_mgtk=1 $(MGTK_VERSION_DEFS) --listing $(basename $@).list -o $@ $<

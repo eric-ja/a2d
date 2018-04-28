@@ -25,6 +25,7 @@
         MGTK_IMPORT drag_curpos
         MGTK_IMPORT drag_delta
         MGTK_IMPORT drag_initialpos
+        MGTK_IMPORTZP error_no_active_window
         MGTK_IMPORT fill_and_frame_rect
         MGTK_IMPORT fixed_div
         MGTK_IMPORTZP fixed_div_dividend
@@ -317,7 +318,7 @@ return_winrect_jmp:
 
         jsr     top_window
         bne     :+
-        exit_call MGTK::error_no_active_window
+        exit_call error_no_active_window
 
 :       bit     current_winfo__vscroll
         bpl     no_vscroll
@@ -460,13 +461,13 @@ ctlmax:    .byte  0
         sta     params::which_ctl
         beq     got_ctl        ; always
 
-:       exit_call MGTK::error_control_not_found
+:       exit_call MGTK__error_control_not_found
 
 got_ctl:
         jsr     top_window
         bne     :+
 
-        exit_call MGTK::error_no_active_window
+        exit_call error_no_active_window
 
 :       ldy     #MGTK::winfo_offset_hthumbmax
         bit     params::which_ctl
@@ -512,7 +513,7 @@ thumbmoved: .byte   0
         sta     params::which_ctl
         beq     got_ctl                    ; always
 
-:       exit_call MGTK::error_control_not_found
+:       exit_call MGTK__error_control_not_found
 
 got_ctl:lda     params::which_ctl
         sta     which_control
@@ -526,7 +527,7 @@ got_ctl:lda     params::which_ctl
 
         jsr     top_window
         bne     :+
-        exit_call MGTK::error_no_active_window
+        exit_call MGTK__error_no_active_window
 
 :       jsr     get_thumb_rect
         jsr     save_params_and_stack
@@ -768,12 +769,12 @@ thumbpos:   .byte   0
         beq     check_win
 
 bad_ctl:
-        exit_call MGTK::error_control_not_found
+        exit_call MGTK__error_control_not_found
 
 check_win:
         jsr     top_window
         bne     :+
-        exit_call MGTK::error_no_active_window
+        exit_call MGTK__error_no_active_window
 
 :       ldy     #MGTK::winfo_offset_hthumbpos
         bit     which_control

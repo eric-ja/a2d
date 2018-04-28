@@ -13,17 +13,6 @@
 .endmacro
 
 
-.macro MGTK_IMPORT name
-        .import .ident( .sprintf("MGTK__%s", .string(name)) )
-        name := .ident( .sprintf("MGTK__%s", .string(name)) )
-.endmacro
-
-.macro MGTK_IMPORTZP name
-        .importzp .ident( .sprintf("MGTK__%s", .string(name)) )
-        name := .ident( .sprintf("MGTK__%s", .string(name)) )
-.endmacro
-
-
 .macro MGTK_PARAM_DEFN length, zp, cursor
         .if ::Variant = 'P'
             .if length = 0
@@ -99,7 +88,7 @@
 .macro MGTK_DECL_ERROR name
         .pushseg
             .segment "MGTK_ERRS"
-            .export name := <*
+            .export .ident( .sprintf("MGTK__%s", .string(name))) := <*
             .res 1
         .popseg
 .endmacro

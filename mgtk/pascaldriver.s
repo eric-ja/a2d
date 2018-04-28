@@ -15,11 +15,14 @@
 
         .segment "MGTK_DISPATCH"
 
+        .export MGTK__pascal_driver := pascal_driver
+
+
         ptr := 4
         save_ret := 6
 
-.proc mgtk_pascal_driver
 
+.proc pascal_driver
 
 pascal_entry:
         pla

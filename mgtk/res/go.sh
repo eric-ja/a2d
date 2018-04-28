@@ -32,6 +32,12 @@ function verify {
             rm /tmp/good /tmp/bad ; 
             return 1
         )
+
+    DIRTYEXPORTS=`make -s $MAKE_FLAGS VERSION=$3 "out-$3/dump-exports" | grep -v \^MGTK` \
+        || true
+    if [ $DIRTYEXPORTS ]; then
+        cecho red "Unclean exported symbols in $3:\n$DIRTYEXPORTS" ; exit 1
+    fi
 }
 
 function stats {
